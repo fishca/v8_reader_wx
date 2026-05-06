@@ -10,7 +10,7 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 # Опции сборки
 option(V8_READER_BUILD_GUI "Собрать GUI приложение на wxWidgets" ON)
-option(V8_READER_BUILD_CLI "Собрать консольное приложение" ON)
+option(V8_READER_BUILD_CLI "Собрать консольное приложение" OFF)
 option(V8_READER_BUILD_TESTS "Собрать тесты" OFF)
 
 # Пути
