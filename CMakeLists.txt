@@ -32,15 +32,6 @@ file(GLOB V8_READER_HEADERS
     "${CMAKE_CURRENT_SOURCE_DIR}/src/*.h"
 )
 
-# Исходные файлы zlib для статической компиляции
-file(GLOB ZLIB_SOURCES
-    "${CMAKE_CURRENT_SOURCE_DIR}/3rdparty/zlib/*.c"
-)
-
-file(GLOB ZLIB_HEADERS
-    "${CMAKE_CURRENT_SOURCE_DIR}/3rdparty/zlib/*.h"
-)
-
 # ============================================================================
 # Статическая библиотека zlib (встроенная)
 # ============================================================================
