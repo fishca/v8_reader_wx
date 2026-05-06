@@ -1,92 +1,56 @@
-# Compiled files
-*.exe
-*.dll
-*.so
-*.dylib
-*.obj
+```
+# Build artifacts
+build/
+cmake-build-*/
+CMakeFiles/
+CMakeCache.txt
+*.cmake
 *.o
 *.a
-*.lib
-*.exp
-*.pdb
-*.tds
-*.map
-*.rsm
-*.identcache
+*.so
+*.dylib
+*.dll
+*.exe
+*.out
 
-# IDE files
-*.dsk
-*.dof
-*.cfg
-*.local
-*.identcache
-*.otares
-*.otapreferences
-*.otarepository
-*.dproj.local
+# Dependencies
+venv/
+.venv/
+.env
+.env.local
+.env.*
 
-# Project files
-*.dproj
-*.cbproj
-*.dpr
-*.bdsproj
-*.bdsgroup
-*.bdsproj.local
-
-# Output directories
-Win32/
-Win64/
-x86/
-x64/
-Debug/
-Release/
-__history/
-*.dcu
-*.dcpil
-
-# Backup files
-*.~*
-*.bak
-*.bk?
-
-# Temporary files
+# Logs and temporary files
+*.log
 *.tmp
-*.temp
+*.swp
+*.swo
 
-# Precompiled headers
-*.pch
-*.sbr
+# Editors
+.vscode/
+.idea/
+*.swp
+*.swo
 
-# Debug files
-*.dbg
-*.db
-*.edb
+# OS
+.DS_Store
+Thumbs.db
 
-# IDE workspace files
-*.bdsgroup
-*.bdsproj.local
+# Coverage
+coverage/
+htmlcov/
+.coverage
 
-# RAD Studio user settings
-*.dproj.local
-*.cbproj.local
-Compile
-.vscode
+# Python specific
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+*.egg-info/
+.eggs/
 
-# Deployment files
-*.deployproj
-*.DEPLOY
-
-# Documentation
-*.doc
-*.pdf
-
-# Packages
-*.bpl
-*.drc
-*.res
-*.rc
-docs/
-*.ps1
-Analize
-.clinerules
-.continue
+# MyPy
+.mypy_cache/
+```
