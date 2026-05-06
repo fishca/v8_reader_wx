@@ -33,6 +33,9 @@ coverage/
 htmlcov/
 .coverage
 
+
+.vs
+
 # Compression
 *.zip
 *.gz
