@@ -44,6 +44,21 @@ file(GLOB ZLIB_HEADERS
 # ============================================================================
 # Статическая библиотека zlib (встроенная)
 # ============================================================================
+# Автоматическое клонирование zlib если директория пуста
+if(NOT EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/3rdparty/zlib/CMakeLists.txt")
+    message(STATUS "zlib not found, cloning repository...")
+    execute_process(
+        COMMAND ${CMAKE_COMMAND} -E rm -rf "${CMAKE_CURRENT_SOURCE_DIR}/3rdparty/zlib"
+    )
+    execute_process(
+        COMMAND git clone --depth 1 https://github.com/madler/zlib.git "${CMAKE_CURRENT_SOURCE_DIR}/3rdparty/zlib"
+        RESULT_VARIABLE GIT_CLONE_RESULT
+    )
+    if(NOT GIT_CLONE_RESULT EQUAL 0)
+        message(FATAL_ERROR "Failed to clone zlib repository")
+    endif()
+endif()
+
 # Используем родную систему сборки zlib через подкаталог
 # Для Windows важно собрать именно статическую библиотеку zlibstatic.lib
 set(ZLIB_BUILD_STATIC ON CACHE BOOL "Build static library" FORCE)
