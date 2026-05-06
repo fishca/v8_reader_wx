@@ -20,7 +20,10 @@ jobs:
       run: |
         if (-not (Test-Path "3rdparty/zlib/CMakeLists.txt")) {
           Remove-Item -Recurse -Force "3rdparty/zlib" -ErrorAction SilentlyContinue
-          git clone --depth 1 --branch v1.3.1 https://github.com/madler/zlib.git 3rdparty/zlib
+          New-Item -ItemType Directory -Force "3rdparty/zlib" | Out-Null
+          git clone --depth 1 --branch v1.3.1 https://github.com/madler/zlib.git tmp_zlib
+          Copy-Item -Path "tmp_zlib/*" -Destination "3rdparty/zlib/" -Recurse
+          Remove-Item -Recurse -Force "tmp_zlib"
         }
     
     - name: Setup MSVC
@@ -35,13 +38,14 @@ jobs:
           -DV8_READER_BUILD_TESTS=OFF `
           -DCMAKE_BUILD_TYPE=Release
         
-    - name: Build zlibstatic
+    - name: Build project
       run: |
-        cmake --build build --target zlibstatic --config Release
+        cmake --build build --config Release -j
         
     - name: Verify zlibstatic.lib
       run: |
-        if (Test-Path "build/lib/zlibstatic.lib") {
+        Get-ChildItem -Recurse "build" -Filter "*.lib" | Select-Object FullName
+        if ((Test-Path "build/lib/zlibstatic.lib") -or (Test-Path "build/zlib_build/Release/zlibstatic.lib") -or (Test-Path "build/Release/zlibstatic.lib")) {
           Write-Host "SUCCESS: zlibstatic.lib created"
           ls build/lib/
         } else {
@@ -53,7 +57,10 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: zlibstatic-windows
-        path: build/lib/zlibstatic.lib
+        path: |
+          build/lib/zlibstatic.lib
+          build/zlib_build/Release/zlibstatic.lib
+          build/Release/zlibstatic.lib
         retention-days: 7
 
   build-linux:
