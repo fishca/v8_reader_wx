@@ -1,0 +1,89 @@
+name: Build zlib (Windows)
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Setup MSVC
+      uses: ilammy/msvc-dev-cmd@v1
+      
+    - name: Configure CMake
+      run: |
+        cmake -B build `
+          -S . `
+          -DV8_READER_BUILD_GUI=OFF `
+          -DV8_READER_BUILD_CLI=ON `
+          -DV8_READER_BUILD_TESTS=OFF `
+          -DCMAKE_BUILD_TYPE=Release
+        
+    - name: Build zlibstatic
+      run: |
+        cmake --build build --target zlibstatic --config Release
+        
+    - name: Verify zlibstatic.lib
+      run: |
+        if (Test-Path "build/lib/zlibstatic.lib") {
+          Write-Host "SUCCESS: zlibstatic.lib created"
+          ls build/lib/
+        } else {
+          Write-Error "FAILED: zlibstatic.lib not found"
+          exit 1
+        }
+        
+    - name: Upload artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: zlibstatic-windows
+        path: build/lib/zlibstatic.lib
+        retention-days: 7
+
+  build-linux:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Install dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y cmake build-essential
+        
+    - name: Configure CMake
+      run: |
+        cmake -B build \
+          -S . \
+          -DV8_READER_BUILD_GUI=OFF \
+          -DV8_READER_BUILD_CLI=ON \
+          -DV8_READER_BUILD_TESTS=OFF \
+          -DCMAKE_BUILD_TYPE=Release
+        
+    - name: Build zlibstatic
+      run: |
+        cmake --build build --target zlibstatic -j$(nproc)
+        
+    - name: Verify libz.a
+      run: |
+        if [ -f "build/lib/libz.a" ]; then
+          echo "SUCCESS: libz.a created"
+          ls -la build/lib/
+        else
+          echo "FAILED: libz.a not found"
+          exit 1
+        fi
+        
+    - name: Upload artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: zlibstatic-linux
+        path: build/lib/libz.a
+        retention-days: 7
