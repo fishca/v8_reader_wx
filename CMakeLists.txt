@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.16)
-project(v8_reader VERSION 1.0.0 LANGUAGES CXX)
+project(v8_reader VERSION 1.0.0 LANGUAGES CXX C)
 
 # ============================================================================
 # Настройки проекта
@@ -29,9 +29,42 @@ file(GLOB V8_READER_HEADERS
     "${CMAKE_CURRENT_SOURCE_DIR}/src/*.h"
 )
 
-# Файлы zlib (только заголовки, реализация линкуется из системы)
+# Исходные файлы zlib для статической компиляции
+file(GLOB ZLIB_SOURCES
+    "${CMAKE_CURRENT_SOURCE_DIR}/3rdparty/zlib/*.c"
+)
+
 file(GLOB ZLIB_HEADERS
     "${CMAKE_CURRENT_SOURCE_DIR}/3rdparty/zlib/*.h"
+)
+
+# ============================================================================
+# Статическая библиотека zlib (встроенная)
+# ============================================================================
+add_library(zlib_static STATIC
+    ${ZLIB_SOURCES}
+    ${ZLIB_HEADERS}
+)
+
+target_include_directories(zlib_static PUBLIC
+    ${CMAKE_CURRENT_SOURCE_DIR}/3rdparty/zlib
+)
+
+target_compile_definitions(zlib_static PRIVATE
+    $<$<CONFIG:Debug>:ZLIB_DEBUG>
+)
+
+# Отключаем предупреждения для стороннего кода zlib
+if(MSVC)
+    target_compile_options(zlib_static PRIVATE /W0)
+else()
+    target_compile_options(zlib_static PRIVATE -w)
+endif()
+
+set_target_properties(zlib_static PROPERTIES
+    POSITION_INDEPENDENT_CODE ON
+    C_STANDARD 99
+    LINKER_LANGUAGE C
 )
 
 # ============================================================================
@@ -40,7 +73,6 @@ file(GLOB ZLIB_HEADERS
 add_library(v8_reader_lib STATIC
     ${V8_READER_SOURCES}
     ${V8_READER_HEADERS}
-    ${ZLIB_HEADERS}
 )
 
 target_include_directories(v8_reader_lib PUBLIC
@@ -49,24 +81,15 @@ target_include_directories(v8_reader_lib PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}/3rdparty
 )
 
+# Линкуем встроенную zlib
+target_link_libraries(v8_reader_lib PUBLIC zlib_static)
+
 # Требования к компилятору
 target_compile_features(v8_reader_lib PUBLIC cxx_std_17)
 
 # Платформенные настройки
 if(WIN32)
     target_compile_definitions(v8_reader_lib PRIVATE _WINDOWS UNICODE _UNICODE)
-    # На Windows может потребоваться системная zlib
-    find_package(ZLIB QUIET)
-    if(ZLIB_FOUND)
-        target_link_libraries(v8_reader_lib PUBLIC ZLIB::ZLIB)
-        target_include_directories(v8_reader_lib PRIVATE ${ZLIB_INCLUDE_DIRS})
-    else()
-        message(WARNING "ZLIB не найден. Некоторые функции могут быть недоступны.")
-    endif()
-else()
-    # На Linux/macOS используем системную zlib
-    find_package(ZLIB REQUIRED)
-    target_link_libraries(v8_reader_lib PUBLIC ZLIB::ZLIB)
 endif()
 
 # ============================================================================
