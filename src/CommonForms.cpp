@@ -1,0 +1,198 @@
+//---------------------------------------------------------------------------
+
+#pragma hdrstop
+
+#include "CommonForms.h"
+//---------------------------------------------------------------------------
+#pragma package(smart_init)
+
+namespace
+{
+	bool __fastcall LooksLike1CModuleText(const String& value)
+	{
+		return value.Pos(L"Процедура ") > 0
+			|| value.Pos(L"Функция ") > 0
+			|| value.Pos(L"КонецПроцедуры") > 0
+			|| value.Pos(L"КонецФункции") > 0
+			|| value.Pos(L"\n") > 0;
+	}
+
+	String __fastcall FindEmbeddedModuleText(tree* node)
+	{
+		if (!node)
+			return L"";
+
+		if (node->get_type() == nd_string && LooksLike1CModuleText(node->get_value()))
+			return node->get_value();
+
+		for (int i = 0; i < node->get_num_subnode(); i++)
+		{
+			String found = FindEmbeddedModuleText(node->get_subnode(i));
+			if (!found.IsEmpty())
+				return found;
+		}
+
+		return L"";
+	}
+
+	String __fastcall GetManagedFormModuleText(tree* root)
+	{
+		if (!root || root->get_num_subnode() <= 0)
+			return L"";
+
+		tree* formRoot = root->get_subnode(0);
+		if (!formRoot || formRoot->get_num_subnode() <= 2)
+			return L"";
+
+		tree* moduleNode = formRoot->get_subnode(2);
+		if (!moduleNode || moduleNode->get_type() != nd_string)
+			return L"";
+
+		return moduleNode->get_value();
+	}
+}
+
+__fastcall TCommonForms::TCommonForms() : BaseMetadataObject()
+{
+    name = "";
+    root_data.reset();
+	textDocument.text = L"";
+	textDocument.loaded = false;
+	textDocument.dirty = false;
+}
+
+__fastcall TCommonForms::TCommonForms(v8catalog* _parent, const String& _guid) : BaseMetadataObject(_parent, _guid)
+{
+    name = "";
+    root_data.reset();
+	textDocument.text = L"";
+	textDocument.loaded = false;
+	textDocument.dirty = false;
+}
+
+__fastcall TCommonForms::TCommonForms(v8catalog* _parent, const String& _guid, const String& _name) : BaseMetadataObject(_parent, _guid, _name)
+{
+    name = _name;
+    root_data.reset();
+	textDocument.text = L"";
+	textDocument.loaded = false;
+	textDocument.dirty = false;
+}
+
+__fastcall TCommonForms::~TCommonForms()
+{
+}
+
+String __fastcall TCommonForms::GetFormName()
+{
+    return name;
+}
+
+void __fastcall TCommonForms::SetFormName(String _name)
+{
+    name = _name;
+}
+
+void __fastcall TCommonForms::LoadTextIfNeeded()
+{
+	if (textDocument.loaded)
+		return;
+
+	textDocument = ModuleTextStorage::LoadCommonForm(parent, guid, name);
+	textDocument.loaded = true;
+}
+
+void __fastcall TCommonForms::RefreshEditableTextIfNeeded()
+{
+	LoadTextIfNeeded();
+	if (textDocument.location.editable)
+		return;
+
+	ModuleTextDocument refreshed = ModuleTextStorage::LoadCommonForm(parent, guid, name);
+	if (refreshed.location.editable)
+		textDocument = refreshed;
+}
+
+String __fastcall TCommonForms::GetText()
+{
+	LoadTextIfNeeded();
+	return textDocument.text;
+}
+
+void __fastcall TCommonForms::SetText(String _text)
+{
+	LoadTextIfNeeded();
+	textDocument.text = _text;
+	textDocument.loaded = true;
+	textDocument.dirty = true;
+}
+
+ModuleTextDocument& __fastcall TCommonForms::GetTextDocument()
+{
+	RefreshEditableTextIfNeeded();
+	return textDocument;
+}
+
+bool __fastcall TCommonForms::SaveTextToSource(const String& newText, String& errorText)
+{
+	RefreshEditableTextIfNeeded();
+	return ModuleTextStorage::SaveDocument(textDocument, newText, errorText);
+}
+
+bool __fastcall TCommonForms::HasEditableModuleText()
+{
+	RefreshEditableTextIfNeeded();
+	return !textDocument.text.IsEmpty() || textDocument.location.editable;
+}
+
+String __fastcall TCommonForms::GetEditableModuleText()
+{
+	return GetText();
+}
+
+void __fastcall TCommonForms::SetEditableModuleText(const String& value)
+{
+	SetText(value);
+}
+
+bool __fastcall TCommonForms::SaveEditableModuleText(const String& value, String& errorText)
+{
+	return SaveTextToSource(value, errorText);
+}
+
+ModuleTextLocation __fastcall TCommonForms::GetEditableModuleLocation()
+{
+	RefreshEditableTextIfNeeded();
+	return textDocument.location;
+}
+
+std::vector<std::unique_ptr<TRequisite>>& TCommonForms::getAttributes()
+{
+    return attributes;
+}
+
+std::vector<std::unique_ptr<TComand>>& TCommonForms::getCommands()
+{
+    return commands;
+}
+
+std::vector<std::unique_ptr<TMoxel>>& TCommonForms::getLayouts()
+{
+    return layouts;
+}
+
+std::vector<std::unique_ptr<TTabular>>& TCommonForms::getTabularSections()
+{
+    return tabularSections;
+}
+
+std::vector<std::unique_ptr<TForm1C>>& TCommonForms::getForms()
+{
+    return forms;
+}
+
+void __fastcall TCommonForms::initializeFromTree()
+{
+    // Инициализация общей формы из дерева метаданных
+    // Имя общей формы уже установлено в конструкторе
+}
