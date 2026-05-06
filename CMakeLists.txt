@@ -41,31 +41,33 @@ file(GLOB ZLIB_HEADERS
 # ============================================================================
 # Статическая библиотека zlib (встроенная)
 # ============================================================================
-add_library(zlib_static STATIC
-    ${ZLIB_SOURCES}
-    ${ZLIB_HEADERS}
-)
+# Используем родную систему сборки zlib через подкаталог
+# Для Windows важно собрать именно статическую библиотеку zlibstatic.lib
+set(ZLIB_BUILD_STATIC ON CACHE BOOL "Build static library" FORCE)
+set(ZLIB_BUILD_SHARED OFF CACHE BOOL "Build shared library" FORCE)
+set(SKIP_INSTALL_ALL ON CACHE BOOL "Skip installation" FORCE)
+set(ZLIB_BUILD_EXAMPLES OFF CACHE BOOL "Disable examples" FORCE)
 
-target_include_directories(zlib_static PUBLIC
-    ${CMAKE_CURRENT_SOURCE_DIR}/3rdparty/zlib
-)
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/3rdparty/zlib ${CMAKE_CURRENT_BINARY_DIR}/zlib_build)
 
-target_compile_definitions(zlib_static PRIVATE
-    $<$<CONFIG:Debug>:ZLIB_DEBUG>
-)
-
-# Отключаем предупреждения для стороннего кода zlib
-if(MSVC)
-    target_compile_options(zlib_static PRIVATE /W0)
-else()
-    target_compile_options(zlib_static PRIVATE -w)
+# Создаём алиас для совместимости с остальным кодом
+if(TARGET zlibstatic)
+    add_library(zlib_static ALIAS zlibstatic)
+    # Настройки для Windows -确保生成 zlibstatic.lib
+    if(MSVC)
+        set_target_properties(zlibstatic PROPERTIES
+            OUTPUT_NAME "zlibstatic"
+            DEBUG_POSTFIX "d"
+        )
+    endif()
+    set_target_properties(zlibstatic PROPERTIES
+        POSITION_INDEPENDENT_CODE ON
+    )
+elseif(TARGET zlib)
+    # Если zlibstatic не создана, используем zlib как статическую
+    message(WARNING "zlibstatic не найдена, используем zlib")
+    add_library(zlib_static ALIAS zlib)
 endif()
-
-set_target_properties(zlib_static PROPERTIES
-    POSITION_INDEPENDENT_CODE ON
-    C_STANDARD 99
-    LINKER_LANGUAGE C
-)
 
 # ============================================================================
 # Статическая библиотека v8_reader_lib
