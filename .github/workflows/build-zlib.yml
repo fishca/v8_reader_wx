@@ -29,10 +29,16 @@ jobs:
     - name: Setup MSVC
       uses: ilammy/msvc-dev-cmd@v1
       
+    - name: Install wxWidgets via vcpkg
+      run: |
+        # vcpkg уже установлен на GitHub Actions windows-latest
+        vcpkg install wxwidgets:x64-windows
+        
     - name: Configure CMake
       run: |
         cmake -B build `
           -S . `
+          -DCMAKE_TOOLCHAIN_FILE="C:/vcpkg/scripts/buildsystems/vcpkg.cmake" `
           -DV8_READER_BUILD_GUI=ON `
           -DV8_READER_BUILD_CLI=OFF `
           -DV8_READER_BUILD_TESTS=OFF `
