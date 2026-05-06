@@ -13,6 +13,9 @@ option(V8_READER_BUILD_GUI "Собрать GUI приложение на wxWidge
 option(V8_READER_BUILD_CLI "Собрать консольное приложение" OFF)
 option(V8_READER_BUILD_TESTS "Собрать тесты" OFF)
 
+# Имя исполняемого файла
+set(V8_READER_GUI_NAME "v8_reader_wx")
+
 # Пути
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
@@ -112,27 +115,28 @@ if(V8_READER_BUILD_GUI)
             "${CMAKE_CURRENT_SOURCE_DIR}/apps/gui/*.h"
         )
         
-        add_executable(v8_reader_gui
+        add_executable(v8_reader_wx
             ${GUI_SOURCES}
             ${GUI_HEADERS}
         )
         
-        target_link_libraries(v8_reader_gui
+        target_link_libraries(v8_reader_wx
             PRIVATE
                 v8_reader_lib
                 ${wxWidgets_LIBRARIES}
         )
         
-        target_include_directories(v8_reader_gui PRIVATE
+        target_include_directories(v8_reader_wx PRIVATE
             ${wxWidgets_INCLUDE_DIRS}
         )
         
-        target_compile_definitions(v8_reader_gui PRIVATE
+        target_compile_definitions(v8_reader_wx PRIVATE
             ${wxWidgets_DEFINITIONS}
         )
         
-        set_target_properties(v8_reader_gui PROPERTIES
+        set_target_properties(v8_reader_wx PROPERTIES
             WIN32_EXECUTABLE TRUE  # Для Windows создаёт GUI приложение без консоли
+            OUTPUT_NAME "${V8_READER_GUI_NAME}"  # Имя исполняемого файла
         )
     else()
         message(FATAL_ERROR "wxWidgets не найден. Отключите V8_READER_BUILD_GUI или установите wxWidgets.")
@@ -219,7 +223,7 @@ install(TARGETS v8_reader_lib
 )
 
 if(V8_READER_BUILD_GUI)
-    install(TARGETS v8_reader_gui
+    install(TARGETS v8_reader_wx
         RUNTIME DESTINATION bin
     )
 endif()
@@ -239,7 +243,7 @@ message(STATUS "===========================================")
 message(STATUS "v8_reader конфигурация сборки:")
 message(STATUS "  Версия: ${PROJECT_VERSION}")
 message(STATUS "  Стандарт C++: ${CMAKE_CXX_STANDARD}")
-message(STATUS "  GUI приложение: ${V8_READER_BUILD_GUI}")
+message(STATUS "  GUI приложение: ${V8_READER_BUILD_GUI} (имя: ${V8_READER_GUI_NAME})")
 message(STATUS "  CLI приложение: ${V8_READER_BUILD_CLI}")
 message(STATUS "  Тесты: ${V8_READER_BUILD_TESTS}")
 message(STATUS "===========================================")

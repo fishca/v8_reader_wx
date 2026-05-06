@@ -1,4 +1,4 @@
-name: Build zlib (Windows)
+name: Build v8_reader_wx (Windows + Linux)
 
 on:
   push:
@@ -33,8 +33,8 @@ jobs:
       run: |
         cmake -B build `
           -S . `
-          -DV8_READER_BUILD_GUI=OFF `
-          -DV8_READER_BUILD_CLI=ON `
+          -DV8_READER_BUILD_GUI=ON `
+          -DV8_READER_BUILD_CLI=OFF `
           -DV8_READER_BUILD_TESTS=OFF `
           -DCMAKE_BUILD_TYPE=Release
         
@@ -42,22 +42,30 @@ jobs:
       run: |
         cmake --build build --config Release -j
         
-    - name: Verify zlibstatic.lib
+    - name: Verify v8_reader_wx.exe and zlibstatic.lib
       run: |
+        Get-ChildItem -Recurse "build" -Filter "*.exe" | Select-Object FullName
         Get-ChildItem -Recurse "build" -Filter "*.lib" | Select-Object FullName
-        if ((Test-Path "build/lib/zlibstatic.lib") -or (Test-Path "build/zlib_build/Release/zlibstatic.lib") -or (Test-Path "build/Release/zlibstatic.lib")) {
-          Write-Host "SUCCESS: zlibstatic.lib created"
+        $exe_found = (Test-Path "build/bin/v8_reader_wx.exe") -or (Test-Path "build/Release/v8_reader_wx.exe")
+        $lib_found = (Test-Path "build/lib/zlibstatic.lib") -or (Test-Path "build/zlib_build/Release/zlibstatic.lib") -or (Test-Path "build/Release/zlibstatic.lib")
+        
+        if ($exe_found -and $lib_found) {
+          Write-Host "SUCCESS: v8_reader_wx.exe and zlibstatic.lib created"
+          ls build/bin/
           ls build/lib/
         } else {
-          Write-Error "FAILED: zlibstatic.lib not found"
+          if (-not $exe_found) { Write-Error "FAILED: v8_reader_wx.exe not found" }
+          if (-not $lib_found) { Write-Error "FAILED: zlibstatic.lib not found" }
           exit 1
         }
         
     - name: Upload artifact
       uses: actions/upload-artifact@v4
       with:
-        name: zlibstatic-windows
+        name: v8-reader-wx-windows
         path: |
+          build/bin/v8_reader_wx.exe
+          build/Release/v8_reader_wx.exe
           build/lib/zlibstatic.lib
           build/zlib_build/Release/zlibstatic.lib
           build/Release/zlibstatic.lib
@@ -81,34 +89,37 @@ jobs:
     - name: Install dependencies
       run: |
         sudo apt-get update
-        sudo apt-get install -y cmake build-essential
+        sudo apt-get install -y cmake build-essential libwxgtk3.2-dev wx-common
         
     - name: Configure CMake
       run: |
         cmake -B build \
           -S . \
-          -DV8_READER_BUILD_GUI=OFF \
-          -DV8_READER_BUILD_CLI=ON \
+          -DV8_READER_BUILD_GUI=ON \
+          -DV8_READER_BUILD_CLI=OFF \
           -DV8_READER_BUILD_TESTS=OFF \
           -DCMAKE_BUILD_TYPE=Release
         
-    - name: Build zlibstatic
+    - name: Build project
       run: |
-        cmake --build build --target zlibstatic -j$(nproc)
+        cmake --build build -j$(nproc)
         
-    - name: Verify libz.a
+    - name: Verify v8_reader_wx and libz.a
       run: |
-        if [ -f "build/lib/libz.a" ]; then
-          echo "SUCCESS: libz.a created"
+        if [ -f "build/bin/v8_reader_wx" ] && [ -f "build/lib/libz.a" ]; then
+          echo "SUCCESS: v8_reader_wx and libz.a created"
+          ls -la build/bin/
           ls -la build/lib/
         else
-          echo "FAILED: libz.a not found"
+          echo "FAILED: v8_reader_wx or libz.a not found"
           exit 1
         fi
         
     - name: Upload artifact
       uses: actions/upload-artifact@v4
       with:
-        name: zlibstatic-linux
-        path: build/lib/libz.a
+        name: v8-reader-wx-linux
+        path: |
+          build/bin/v8_reader_wx
+          build/lib/libz.a
         retention-days: 7
