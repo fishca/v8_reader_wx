@@ -10,7 +10,7 @@
 
 //#pragma package(smart_init)
 
-#include "UZlib.h"
+#include "UZLib.h"
 #pragma comment (lib, "zlibstatic.lib")
 
 #define CHUNK 65536
