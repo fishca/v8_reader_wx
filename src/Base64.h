@@ -3,7 +3,7 @@
 #ifndef Base64H
 #define Base64H
 
-#include <System.Classes.hpp>
+#include "vcl_utils.h"
 //---------------------------------------------------------------------------
 
 void  base64_encode(TStream* infile, TStream* outfile, int linesize);

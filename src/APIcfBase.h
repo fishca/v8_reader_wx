@@ -8,7 +8,7 @@
 #ifndef APIcfBaseH
 #define APIcfBaseH
 
-#include <System.Classes.hpp>
+#include "vcl_utils.h"
 #include <map>
 #include <set>
 
@@ -110,7 +110,7 @@ class v8file
 
 	TCriticalSection *Lock;
 
-	TStream* data;
+	vcl_utils::TStream* data;
 
 	v8catalog* parent;
 
@@ -159,9 +159,9 @@ class v8file
     // перезапись целиком
 	int Write(const void* Buffer, int Length);
     // дозапись/перезапись частично
-	int Write(TStream* Stream, int Start, int Length);
+	int Write(vcl_utils::TStream* Stream, int Start, int Length);
     // перезапись целиком
-	int Write(TStream* Stream);
+	int Write(vcl_utils::TStream* Stream);
 
 	String GetFileName();
 	String GetFullName();
@@ -178,7 +178,7 @@ class v8file
 	void Close();
 
     // перезапись целиком и закрытие файла (для экономии памяти не используется data файла)
-	int WriteAndClose(TStream* Stream, int Length = -1);
+	int WriteAndClose(vcl_utils::TStream* Stream, int Length = -1);
 
 	void GetTimeCreate(FILETIME* ft);
 	void GetTimeModify(FILETIME* ft);
@@ -186,8 +186,8 @@ class v8file
 	void SetTimeModify(FILETIME* ft);
 
 	void SaveToFile(const String& FileName);
-	void SaveToStream(TStream* stream);
-	//TStream*  get_data();
+	void SaveToStream(vcl_utils::TStream* stream);
+	//vcl_utils::TStream*  get_data();
 
 	TV8FileStream* get_stream(bool own = false);
 
@@ -204,8 +204,8 @@ class v8catalog
 
 	v8file* file; // файл, которым является каталог. Для корневого каталога NULL
 
-	TStream* data; // поток каталога. Если file не NULL (каталог не корневой), совпадает с file->data
-	TStream* cfu;  // поток файла cfu. Существует только при is_cfu == true
+	vcl_utils::TStream* data; // поток каталога. Если file не NULL (каталог не корневой), совпадает с file->data
+	vcl_utils::TStream* cfu;  // поток файла cfu. Существует только при is_cfu == true
 
 	void initialize(int Offset = 0);
 
@@ -236,12 +236,12 @@ class v8catalog
 	void free_block(int start);
 
     // возвращает адрес начала блока
-	int write_block(TStream* block, int start, bool use_page_size, int len = -1);
+	int write_block(vcl_utils::TStream* block, int start, bool use_page_size, int len = -1);
 
     // возвращает адрес начала блока
-	int write_datablock(TStream* block, int start, bool _zipped = false, int len = -1);
+	int write_datablock(vcl_utils::TStream* block, int start, bool _zipped = false, int len = -1);
 
-	TStream* read_datablock(int start, int offset = 0);
+	vcl_utils::TStream* read_datablock(int start, int offset = 0);
 
 	int get_nextblock(int start);
 
@@ -254,7 +254,7 @@ class v8catalog
 	v8catalog(v8file* f);   // создать каталог из файла
 	v8catalog(String name); // создать каталог из физического файла (cf, epf, erf, hbk, cfu)
 	v8catalog(String name, bool _zipped); // создать каталог из физического файла (cf, epf, erf, hbk, cfu)
-	v8catalog(TStream* stream, bool _zipped, bool leave_stream = false); // создать каталог из потока
+	v8catalog(vcl_utils::TStream* stream, bool _zipped, bool leave_stream = false); // создать каталог из потока
 
 	~v8catalog();
 
@@ -280,7 +280,7 @@ class v8catalog
 };
 
 //===========================================================================
-class TV8FileStream : public TStream
+class TV8FileStream : public vcl_utils::TStream
 {
 protected:
 	v8file* file;
@@ -296,8 +296,8 @@ public:
 	virtual int Write(const void *Buffer, int Count);
 	virtual int Write(const ByteArr Buffer, int Offset, int Count);
 
-	virtual int     Seek(int Offset, System::Word Origin);
-	virtual __int64 Seek(const __int64 Offset, TSeekOrigin Origin);
+	virtual int     Seek(int Offset, int Origin);  // Заменено System::Word на int
+	virtual __int64 Seek(const __int64 Offset, int Origin);  // Заменено TSeekOrigin на int
 };
 
 #endif

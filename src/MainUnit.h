@@ -3,7 +3,7 @@
 #ifndef MainUnitH
 #define MainUnitH
 //---------------------------------------------------------------------------
-#include <System.Classes.hpp>
+#include "vcl_utils.h"
 #include <Vcl.Controls.hpp>
 #include <Vcl.StdCtrls.hpp>
 #include <Vcl.Forms.hpp>

@@ -13,7 +13,7 @@
 #include <unordered_map>
 #include <unordered_set>
 
-#include <System.SysUtils.hpp>
+#include "vcl_utils.h"
 
 #include "V8File.h"
 #include "ApicfBase.h"
