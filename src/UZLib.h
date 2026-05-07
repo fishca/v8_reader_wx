@@ -4,7 +4,7 @@
 #define UZLibH
 
 
-#include <System.Classes.hpp>
+#include "vcl_utils.h"
 #include "zlib.h"
 
 //---------------------------------------------------------------------------
@@ -116,8 +116,8 @@ class ZInflateStream : ZStreamBase
 };
 
 
-void ZInflateStream(TStream* src, TStream* dst);
-void ZDeflateStream(TStream* src, TStream* dst);
+void ZInflateStream(vcl_utils::TStream* src, vcl_utils::TStream* dst);
+void ZDeflateStream(vcl_utils::TStream* src, vcl_utils::TStream* dst);
 
 int inf(FILE *source, FILE *dest);
 int def(FILE *source, FILE *dest, int level);

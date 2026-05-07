@@ -422,7 +422,7 @@ String  tohex64(__int64 n)
 }
 
 //---------------------------------------------------------------------------
-String  hexstring(TStream* str)
+String  hexstring(vcl_utils::TStream* str)
 {
 	int i;
 	String s = L"";

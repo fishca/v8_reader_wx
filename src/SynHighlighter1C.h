@@ -4,8 +4,7 @@
 #define SynHighlighter1CH
 //---------------------------------------------------------------------------
 
-#include <System.Classes.hpp>
-#include <System.SysUtils.hpp>
+#include "vcl_utils.h"
 #include <Vcl.Graphics.hpp>
 #include "SynEditHighlighter.hpp"
 

@@ -16,8 +16,7 @@
 
 // Для совместимости с C++ Builder VCL
 #ifdef __BORLANDC__
-#include <System.Classes.hpp>
-#include <System.SysUtils.hpp>
+#include "vcl_utils.h"
 #endif
 
 // Forward declarations

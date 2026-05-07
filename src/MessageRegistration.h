@@ -3,7 +3,7 @@
 #ifndef MessageRegistrationH
 #define MessageRegistrationH
 
-#include <System.Classes.hpp>
+#include "vcl_utils.h"
 //#include <vcl.h>
 #pragma hdrstop
 

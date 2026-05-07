@@ -6,7 +6,7 @@
 //#include <vcl.h>
 #include <vector>
 #include "APIcfBase.h"
-#include <System.Classes.hpp>
+#include "vcl_utils.h"
 
 //---------------------------------------------------------------------------
 void  time1CD_to_FileTime(FILETIME* ft, unsigned char* time1CD);
@@ -25,7 +25,7 @@ String  date_to_string(const unsigned char* bytedate);
 String  tohex(int n);
 String  tohex64(__int64 n);
 String  hexstring(char* buf, int n);
-String  hexstring(TStream* str);
+String  hexstring(vcl_utils::TStream* str);
 //---------------------------------------------------------------------------
 
 String  GetNameFromTreePath(v8catalog *cf, String &guid_md, const std::vector<int>& path);

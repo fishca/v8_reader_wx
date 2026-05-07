@@ -3,7 +3,7 @@
 #ifndef ConfigStorageH
 #define ConfigStorageH
 
-#include <System.Classes.hpp>
+#include "vcl_utils.h"
 #include <vector>
 #include <map>
 #include <set>

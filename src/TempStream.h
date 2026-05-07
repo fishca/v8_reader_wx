@@ -3,7 +3,7 @@
 #ifndef TempStreamH
 #define TempStreamH
 
-#include <System.Classes.hpp>
+#include "vcl_utils.h"
 
 class TTempStreamStaticInit
 {
@@ -14,13 +14,13 @@ public:
 
 
 //---------------------------------------------------------------------------
-class TTempStream : public THandleStream
+class TTempStream : public vcl_utils::TStream
 {
 public:
-	static String tempcat;
-	static String tempname;
+	static std::wstring tempcat;
+	static std::wstring tempname;
 	static long tempno;
-	static String  gettempname();
+	static std::wstring  gettempname();
 
 	 TTempStream();
 	virtual  ~TTempStream();

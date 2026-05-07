@@ -7,7 +7,7 @@
 #include <signal.h>
 
 #include <System.IOUtils.hpp>
-#include <System.SysUtils.hpp>
+#include "vcl_utils.h"
 //---------------------------------------------------------------------------
 USEFORM("MainUnit.cpp", MainForm);
 //---------------------------------------------------------------------------

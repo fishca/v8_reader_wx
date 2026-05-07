@@ -3,8 +3,8 @@
 #ifndef ModuleTextStorageH
 #define ModuleTextStorageH
 
-#include <System.Classes.hpp>
-#include <System.SysUtils.hpp>
+#include "vcl_utils.h"
+#include "vcl_utils.h"
 
 #include "APIcfBase.h"
 #include "Parse_tree.h"
