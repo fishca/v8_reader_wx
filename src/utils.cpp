@@ -7,7 +7,7 @@ at http://mozilla.org/MPL/2.0/.
 #include "V8File.h"
 #include <iostream>
 #include "zlib.h"
-#include <boost/filesystem/fstream.hpp>
+#include <fstream>
 
 #define CHUNK 16384
 #ifndef DEF_MEM_LEVEL
@@ -97,8 +97,8 @@ int Inflate(const std::string &in_filename, const std::string &out_filename)
     else
     {
 
-		boost::filesystem::path inf(in_filename);
-		input.reset(new boost::filesystem::ifstream(inf, std::ios_base::binary));
+		std::filesystem::path inf(in_filename);
+		input.reset(new std::ifstream(inf, std::ios_base::binary));
 
 		if (!*input)
         {
@@ -117,8 +117,8 @@ int Inflate(const std::string &in_filename, const std::string &out_filename)
 	}
     else
     {
-    	boost::filesystem::path ouf(out_filename);
-		output.reset(new boost::filesystem::ofstream (ouf, std::ios_base::binary));
+    	std::filesystem::path ouf(out_filename);
+		output.reset(new std::ofstream (ouf, std::ios_base::binary));
 
 		if (!*output)
         {
@@ -145,8 +145,8 @@ int Deflate(const std::string &in_filename, const std::string &out_filename)
 	}
     else
     {
-    	boost::filesystem::path inf(in_filename);
-		input.reset(new boost::filesystem::ifstream(inf, std::ios_base::binary));
+    	std::filesystem::path inf(in_filename);
+		input.reset(new std::ifstream(inf, std::ios_base::binary));
 
 		if (!*input)
         {
@@ -163,8 +163,8 @@ int Deflate(const std::string &in_filename, const std::string &out_filename)
 	}
     else
     {
-		boost::filesystem::path ouf(out_filename);
-		output.reset(new boost::filesystem::ofstream (ouf, std::ios_base::binary));
+		std::filesystem::path ouf(out_filename);
+		output.reset(new std::ofstream (ouf, std::ios_base::binary));
 
 		if (!*output)
         {
@@ -463,10 +463,10 @@ bool try_inflate(std::istream &source, std::ostream &dest)
 	return true;
 }
 
-bool try_inflate(const boost::filesystem::path &source, const boost::filesystem::path &dest)
+bool try_inflate(const std::filesystem::path &source, const std::filesystem::path &dest)
 {
-	boost::filesystem::ifstream inf(source, std::ios_base::binary);
-	boost::filesystem::ofstream out(dest, std::ios_base::binary);
+	std::ifstream inf(source, std::ios_base::binary);
+	std::ofstream out(dest, std::ios_base::binary);
 
 	return try_inflate(inf, out);
 }
