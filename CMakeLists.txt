@@ -88,7 +88,6 @@ add_library(v8_reader_lib STATIC
 
 target_include_directories(v8_reader_lib PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}/src
-    ${CMAKE_CURRENT_SOURCE_DIR}/include
     ${CMAKE_CURRENT_SOURCE_DIR}/3rdparty
 )
 
