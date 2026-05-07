@@ -1,0 +1,1 @@
+/usr/bin/c++ CMakeFiles/v8_reader_cli.dir/apps/cli/main.cpp.o -o bin/v8_reader_cli  lib/libv8_reader_lib.a lib/libz.a 

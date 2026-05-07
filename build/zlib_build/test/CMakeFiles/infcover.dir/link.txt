@@ -1,0 +1,1 @@
+/usr/bin/cc -coverage CMakeFiles/infcover.dir/infcover.c.o -o ../../bin/infcover  ../../lib/libz.a 
