@@ -10,7 +10,7 @@
 wchar_t hexdecode[] = L"0123456789abcdef";
 
 //---------------------------------------------------------------------------
-void __fastcall time1CD_to_FileTime(FILETIME* ft, unsigned char* time1CD)
+void  time1CD_to_FileTime(FILETIME* ft, unsigned char* time1CD)
 {
 	SYSTEMTIME st;
 	FILETIME lft;
@@ -25,7 +25,7 @@ void __fastcall time1CD_to_FileTime(FILETIME* ft, unsigned char* time1CD)
 }
 
 //---------------------------------------------------------------------------
-unsigned int __fastcall reverse_byte_order(unsigned int value)
+unsigned int  reverse_byte_order(unsigned int value)
 {
 	unsigned int ret;
 	((char*)(&ret))[0] = ((char*)(&value))[3];
@@ -36,7 +36,7 @@ unsigned int __fastcall reverse_byte_order(unsigned int value)
 }
 
 //---------------------------------------------------------------------------
-String __fastcall GUIDas1C(const unsigned char* fr)
+String  GUIDas1C(const unsigned char* fr)
 {
 	int i, j;
 	wchar_t buf[37];
@@ -98,7 +98,7 @@ String __fastcall GUIDas1C(const unsigned char* fr)
 }
 
 //---------------------------------------------------------------------------
-String __fastcall GUIDasMS(const unsigned char* fr)
+String  GUIDasMS(const unsigned char* fr)
 {
 	int i, j;
 	wchar_t buf[37];
@@ -159,13 +159,13 @@ String __fastcall GUIDasMS(const unsigned char* fr)
 }
 
 //---------------------------------------------------------------------------
-String __fastcall GUID_to_string(const TGUID& guid)
+String  GUID_to_string(const TGUID& guid)
 {
 	return GUIDas1C((unsigned char*)&guid);
 }
 
 //---------------------------------------------------------------------------
-bool __fastcall string_to_GUID(const String& str, TGUID* guid)
+bool  string_to_GUID(const String& str, TGUID* guid)
 {
 	int i,j;
 
@@ -223,7 +223,7 @@ bool __fastcall string_to_GUID(const String& str, TGUID* guid)
 }
 
 //---------------------------------------------------------------------------
-String __fastcall GUID_to_string_flat(TGUID* guid)
+String  GUID_to_string_flat(TGUID* guid)
 {
 	int i,j;
 
@@ -247,7 +247,7 @@ String __fastcall GUID_to_string_flat(TGUID* guid)
 }
 
 //---------------------------------------------------------------------------
-bool __fastcall string_to_GUID_flat(const String& str, TGUID* guid)
+bool  string_to_GUID_flat(const String& str, TGUID* guid)
 {
 	int i,j;
 
@@ -274,7 +274,7 @@ bool __fastcall string_to_GUID_flat(const String& str, TGUID* guid)
 }
 
 //---------------------------------------------------------------------------
-bool __fastcall two_hex_digits_to_byte(const wchar_t hi, const wchar_t lo, unsigned char& res)
+bool  two_hex_digits_to_byte(const wchar_t hi, const wchar_t lo, unsigned char& res)
 {
 	if(hi >= L'0' && hi <=L'9') res = (hi - L'0') << 4;
 	else if(hi >= L'a' && hi <=L'f') res = (hi - (L'a' - 0xa)) << 4;
@@ -299,7 +299,7 @@ bool __fastcall two_hex_digits_to_byte(const wchar_t hi, const wchar_t lo, unsig
 
 //---------------------------------------------------------------------------
 // yyyymmddhhmmss -> char[7]
-bool __fastcall string1C_to_date(const String& str, unsigned char* bytedate)
+bool  string1C_to_date(const String& str, unsigned char* bytedate)
 {
 	bytedate[0] = ((str[1] - L'0') << 4) + (str[2] - L'0');
 	bytedate[1] = ((str[3] - L'0') << 4) + (str[4] - L'0');
@@ -313,7 +313,7 @@ bool __fastcall string1C_to_date(const String& str, unsigned char* bytedate)
 
 //---------------------------------------------------------------------------
 // dd.mm.yyyy hh:mm:ss -> char[7]
-bool __fastcall string_to_date(const String& str, unsigned char* bytedate)
+bool  string_to_date(const String& str, unsigned char* bytedate)
 {
 	bytedate[3] = ((str[1] - L'0') << 4) + (str[2] - L'0');
 	bytedate[2] = ((str[4] - L'0') << 4) + (str[5] - L'0');
@@ -327,7 +327,7 @@ bool __fastcall string_to_date(const String& str, unsigned char* bytedate)
 
 //---------------------------------------------------------------------------
 // char[7] -> yyyymmddhhmmss
-String __fastcall date_to_string1C(const unsigned char* bytedate)
+String  date_to_string1C(const unsigned char* bytedate)
 {
 	wchar_t buf[15];
 
@@ -352,7 +352,7 @@ String __fastcall date_to_string1C(const unsigned char* bytedate)
 
 //---------------------------------------------------------------------------
 // char[7] -> dd.mm.yyyy hh:mm:ss
-String __fastcall date_to_string(const unsigned char* bytedate)
+String  date_to_string(const unsigned char* bytedate)
 {
 	wchar_t buf[20];
 
@@ -381,7 +381,7 @@ String __fastcall date_to_string(const unsigned char* bytedate)
 }
 
 //---------------------------------------------------------------------------
-String __fastcall hexstring(char* buf, int n)
+String  hexstring(char* buf, int n)
 {
 	int i;
 	String s = L"";
@@ -405,13 +405,13 @@ String __fastcall hexstring(char* buf, int n)
 }
 
 //---------------------------------------------------------------------------
-String __fastcall tohex(int n)
+String  tohex(int n)
 {
 	return String("0x") + String::IntToHex(n, 0);
 }
 
 //---------------------------------------------------------------------------
-String __fastcall tohex64(__int64 n)
+String  tohex64(__int64 n)
 {
 	int nl;
 	int nh;
@@ -422,7 +422,7 @@ String __fastcall tohex64(__int64 n)
 }
 
 //---------------------------------------------------------------------------
-String __fastcall hexstring(TStream* str)
+String  hexstring(TStream* str)
 {
 	int i;
 	String s = L"";
@@ -442,7 +442,7 @@ String __fastcall hexstring(TStream* str)
 	return s;
 }
 
-String __fastcall GetNameFromTreePath(v8catalog *cf, String &guid_md, const std::vector<int>& path)
+String  GetNameFromTreePath(v8catalog *cf, String &guid_md, const std::vector<int>& path)
 {
 	String Result = "";
 	v8file *filedata = cf->GetFile(guid_md);
@@ -468,13 +468,13 @@ String __fastcall GetNameFromTreePath(v8catalog *cf, String &guid_md, const std:
 	return Result;
 }
 
-String __fastcall GetNameFormCatalogs(v8catalog *cf, String &guid_md)
+String  GetNameFormCatalogs(v8catalog *cf, String &guid_md)
 {
 	std::vector<int> path = {0, 1, 1, 1, 2};
 	return GetNameFromTreePath(cf, guid_md, path);
 }
 
-String __fastcall GetNameFormReports(v8catalog *cf, String &guid_md)
+String  GetNameFormReports(v8catalog *cf, String &guid_md)
 {
 	std::vector<int> path = {0, 1, 1, 1, 1, 2};
 	return GetNameFromTreePath(cf, guid_md, path);
@@ -499,7 +499,7 @@ String __fastcall GetNameFormReports(v8catalog *cf, String &guid_md)
 //	return Result;
 }
 
-String __fastcall GetNameFormPVH(v8catalog *cf, String &guid_md)
+String  GetNameFormPVH(v8catalog *cf, String &guid_md)
 {
 	std::vector<int> path = {0, 1, 1, 2};
 	return GetNameFromTreePath(cf, guid_md, path);
@@ -524,13 +524,13 @@ String __fastcall GetNameFormPVH(v8catalog *cf, String &guid_md)
 //	return Result;
 }
 
-String __fastcall GetNameFormDescriptor(v8catalog *cf, String &guid_md)
+String  GetNameFormDescriptor(v8catalog *cf, String &guid_md)
 {
 	std::vector<int> path = {0, 1, 1, 2};
 	return GetNameFromTreePath(cf, guid_md, path);
 }
 
-String __fastcall GetNameMoxCatalogs(v8catalog *cf, String &guid_md)
+String  GetNameMoxCatalogs(v8catalog *cf, String &guid_md)
 {
 	std::vector<int> path = {0, 1, 2, 2};
 	return GetNameFromTreePath(cf, guid_md, path);

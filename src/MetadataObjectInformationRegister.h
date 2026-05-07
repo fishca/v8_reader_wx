@@ -42,10 +42,10 @@ protected:
     void initializeFromTreeWithPaths(const InfoRegisterTreePaths& paths);
 
 public:
-    __fastcall MetadataObjectInformationRegister();
-    __fastcall MetadataObjectInformationRegister(v8catalog* _parent, const String& _guid);
-    __fastcall MetadataObjectInformationRegister(v8catalog* _parent, const String& _guid, const String& _name);
-    virtual __fastcall ~MetadataObjectInformationRegister();
+     MetadataObjectInformationRegister();
+     MetadataObjectInformationRegister(v8catalog* _parent, const String& _guid);
+     MetadataObjectInformationRegister(v8catalog* _parent, const String& _guid, const String& _name);
+    virtual  ~MetadataObjectInformationRegister();
 
     std::vector<std::unique_ptr<TRequisite>>& getAttributes() override { return attributes; }
     std::vector<std::unique_ptr<TComand>>& getCommands() override { return comands; }

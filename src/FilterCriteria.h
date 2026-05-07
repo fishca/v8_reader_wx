@@ -19,14 +19,14 @@ private:
     // filterCriteriaName хранится в унаследованном поле name из BaseMetadataObject
 
 public:
-    __fastcall TFilterCriteria();
-    __fastcall TFilterCriteria(v8catalog* _parent, const String& _guid);
-    __fastcall TFilterCriteria(v8catalog* _parent, const String& _guid, const String& _name);
-    virtual __fastcall ~TFilterCriteria();
+     TFilterCriteria();
+     TFilterCriteria(v8catalog* _parent, const String& _guid);
+     TFilterCriteria(v8catalog* _parent, const String& _guid, const String& _name);
+    virtual  ~TFilterCriteria();
 
     // Методы для получения имени критерия отбора
-    String __fastcall GetFilterCriteriaName();
-    void __fastcall SetFilterCriteriaName(String _name);
+    String  GetFilterCriteriaName();
+    void  SetFilterCriteriaName(String _name);
 
     // Реализация виртуальных методов BaseMetadataObject
     std::vector<std::unique_ptr<TRequisite>>& getAttributes() override;
@@ -35,7 +35,7 @@ public:
     std::vector<std::unique_ptr<TTabular>>& getTabularSections() override;
     std::vector<std::unique_ptr<TForm1C>>& getForms() override;
 
-    void __fastcall initializeFromTree() override;
+    void  initializeFromTree() override;
 
 private:
     // Внутренние хранилища для совместимости с интерфейсом

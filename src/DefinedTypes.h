@@ -19,14 +19,14 @@ private:
     String typeName;  // Имя определяемого типа
 
 public:
-    __fastcall TDefinedTypes();
-    __fastcall TDefinedTypes(v8catalog* _parent, const String& _guid);
-    __fastcall TDefinedTypes(v8catalog* _parent, const String& _guid, const String& _name);
-    virtual __fastcall ~TDefinedTypes();
+     TDefinedTypes();
+     TDefinedTypes(v8catalog* _parent, const String& _guid);
+     TDefinedTypes(v8catalog* _parent, const String& _guid, const String& _name);
+    virtual  ~TDefinedTypes();
 
     // Методы для получения имени определяемого типа
-    String __fastcall GetTypeName();
-    void __fastcall SetTypeName(String _name);
+    String  GetTypeName();
+    void  SetTypeName(String _name);
 
     // Реализация виртуальных методов BaseMetadataObject
     std::vector<std::unique_ptr<TRequisite>>& getAttributes() override;
@@ -35,7 +35,7 @@ public:
     std::vector<std::unique_ptr<TTabular>>& getTabularSections() override;
     std::vector<std::unique_ptr<TForm1C>>& getForms() override;
 
-    void __fastcall initializeFromTree() override;
+    void  initializeFromTree() override;
 
 private:
     // Внутренние хранилища для совместимости с интерфейсом

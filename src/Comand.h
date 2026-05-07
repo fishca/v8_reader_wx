@@ -9,8 +9,8 @@
 class TComand : public TMDO
 {
 public:
-	__fastcall TComand();
-	__fastcall TComand(String _name, String _guid);
-	__fastcall ~TComand();
+	 TComand();
+	 TComand(String _name, String _guid);
+	 ~TComand();
 };
 #endif

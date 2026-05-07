@@ -187,7 +187,7 @@ class v8file
 
 	void SaveToFile(const String& FileName);
 	void SaveToStream(TStream* stream);
-	//TStream* __fastcall get_data();
+	//TStream*  get_data();
 
 	TV8FileStream* get_stream(bool own = false);
 
@@ -268,14 +268,14 @@ class v8catalog
 	v8catalog* CreateCatalog(const String& FileName, bool _selfzipped = false);
 	void DeleteFile(const String& FileName);
 	v8catalog* GetParentCatalog();
-	//void __fastcall Defrag(bool Recursively);
+	//void  Defrag(bool Recursively);
 	v8file* GetSelfFile();
 	void SaveToDir(String DirName);
 	bool isOpen();
 	void Flush();
 	void HalfClose();
 	void HalfOpen(const String& name);
-	//void __fastcall set_leave_data(bool ld);
+	//void  set_leave_data(bool ld);
     void ClearIs8316();
 };
 

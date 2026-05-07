@@ -10,12 +10,12 @@
 class TInformationRegisters : public MetadataObjectInformationRegister
 {
 public:
-	__fastcall TInformationRegisters();
-	__fastcall TInformationRegisters(v8catalog *_parent, const String& _guid);
-	__fastcall TInformationRegisters(v8catalog *_parent, const String& _guid, const String& _name);
-	__fastcall ~TInformationRegisters();
+	 TInformationRegisters();
+	 TInformationRegisters(v8catalog *_parent, const String& _guid);
+	 TInformationRegisters(v8catalog *_parent, const String& _guid, const String& _name);
+	 ~TInformationRegisters();
 
-	void __fastcall initializeFromTree() override;
+	void  initializeFromTree() override;
 };
 
 #endif

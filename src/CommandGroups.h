@@ -19,14 +19,14 @@ private:
     // groupName хранится в унаследованном поле name из BaseMetadataObject
 
 public:
-    __fastcall TCommandGroups();
-    __fastcall TCommandGroups(v8catalog* _parent, const String& _guid);
-    __fastcall TCommandGroups(v8catalog* _parent, const String& _guid, const String& _name);
-    virtual __fastcall ~TCommandGroups();
+     TCommandGroups();
+     TCommandGroups(v8catalog* _parent, const String& _guid);
+     TCommandGroups(v8catalog* _parent, const String& _guid, const String& _name);
+    virtual  ~TCommandGroups();
 
     // Методы для получения имени группы команд
-    String __fastcall GetCommandName();
-    void __fastcall SetCommandName(String _name);
+    String  GetCommandName();
+    void  SetCommandName(String _name);
 
     // Реализация виртуальных методов BaseMetadataObject
     std::vector<std::unique_ptr<TRequisite>>& getAttributes() override;
@@ -35,7 +35,7 @@ public:
     std::vector<std::unique_ptr<TTabular>>& getTabularSections() override;
     std::vector<std::unique_ptr<TForm1C>>& getForms() override;
 
-    void __fastcall initializeFromTree() override;
+    void  initializeFromTree() override;
 
 private:
     // Внутренние хранилища для совместимости с интерфейсом

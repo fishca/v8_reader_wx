@@ -19,14 +19,14 @@ private:
     // pictureName хранится в унаследованном поле name из BaseMetadataObject
 
 public:
-    __fastcall TCommonPictures();
-    __fastcall TCommonPictures(v8catalog* _parent, const String& _guid);
-    __fastcall TCommonPictures(v8catalog* _parent, const String& _guid, const String& _name);
-    virtual __fastcall ~TCommonPictures();
+     TCommonPictures();
+     TCommonPictures(v8catalog* _parent, const String& _guid);
+     TCommonPictures(v8catalog* _parent, const String& _guid, const String& _name);
+    virtual  ~TCommonPictures();
 
     // Методы для получения имени общей картинки
-    String __fastcall GetPictureName();
-    void __fastcall SetPictureName(String _name);
+    String  GetPictureName();
+    void  SetPictureName(String _name);
 
     // Реализация виртуальных методов BaseMetadataObject
     std::vector<std::unique_ptr<TRequisite>>& getAttributes() override;
@@ -35,7 +35,7 @@ public:
     std::vector<std::unique_ptr<TTabular>>& getTabularSections() override;
     std::vector<std::unique_ptr<TForm1C>>& getForms() override;
 
-    void __fastcall initializeFromTree() override;
+    void  initializeFromTree() override;
 
 private:
     // Внутренние хранилища для совместимости с интерфейсом

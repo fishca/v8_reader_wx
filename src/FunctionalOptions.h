@@ -19,14 +19,14 @@ private:
     // name хранится в унаследованном поле name из BaseMetadataObject
 
 public:
-    __fastcall TFunctionalOptions();
-    __fastcall TFunctionalOptions(v8catalog* _parent, const String& _guid);
-    __fastcall TFunctionalOptions(v8catalog* _parent, const String& _guid, const String& _name);
-    virtual __fastcall ~TFunctionalOptions();
+     TFunctionalOptions();
+     TFunctionalOptions(v8catalog* _parent, const String& _guid);
+     TFunctionalOptions(v8catalog* _parent, const String& _guid, const String& _name);
+    virtual  ~TFunctionalOptions();
 
     // Методы для получения имени функциональной опции
-    String __fastcall GetOptionName();
-    void __fastcall SetOptionName(String _name);
+    String  GetOptionName();
+    void  SetOptionName(String _name);
 
     // Реализация виртуальных методов BaseMetadataObject
     std::vector<std::unique_ptr<TRequisite>>& getAttributes() override;
@@ -35,7 +35,7 @@ public:
     std::vector<std::unique_ptr<TTabular>>& getTabularSections() override;
     std::vector<std::unique_ptr<TForm1C>>& getForms() override;
 
-    void __fastcall initializeFromTree() override;
+    void  initializeFromTree() override;
 
 private:
     // Внутренние хранилища для совместимости с интерфейсом

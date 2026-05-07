@@ -15,7 +15,7 @@
 
 namespace
 {
-	bool __fastcall LooksLikeUtf16Le(const TBytes& bytes, int sourceSize)
+	bool  LooksLikeUtf16Le(const TBytes& bytes, int sourceSize)
 	{
 		int limit = sourceSize < 200 ? sourceSize : 200;
 		int checked = 0;
@@ -31,7 +31,7 @@ namespace
 		return checked > 0 && zeroOdd * 2 >= checked;
 	}
 
-	String __fastcall DecodeModuleText(const TBytes& sourceBytes, int sourceSize, ModuleTextEncodingKind& encoding)
+	String  DecodeModuleText(const TBytes& sourceBytes, int sourceSize, ModuleTextEncodingKind& encoding)
 	{
 		encoding = ModuleTextEncodingKind::Unknown;
 
@@ -73,7 +73,7 @@ namespace
 		}
 	}
 
-	void __fastcall AddUniquePath(std::vector<String>& values, const String& value)
+	void  AddUniquePath(std::vector<String>& values, const String& value)
 	{
 		if (value.IsEmpty())
 			return;
@@ -86,7 +86,7 @@ namespace
 		values.push_back(value);
 	}
 
-	std::vector<String> __fastcall GetSourceCfRoots()
+	std::vector<String>  GetSourceCfRoots()
 	{
 		std::vector<String> roots;
 		AddUniquePath(roots, TPath::Combine(GetCurrentDir(), L"SourceCF"));
@@ -94,7 +94,7 @@ namespace
 		return roots;
 	}
 
-	void __fastcall AddUniqueString(std::vector<String>& values, const String& value)
+	void  AddUniqueString(std::vector<String>& values, const String& value)
 	{
 		if (value.IsEmpty())
 			return;
@@ -107,7 +107,7 @@ namespace
 		values.push_back(value);
 	}
 
-	std::vector<String> __fastcall GetModuleContainerCandidates(const String& baseGuid,
+	std::vector<String>  GetModuleContainerCandidates(const String& baseGuid,
 		ModuleTextKind kind = ModuleTextKind::Unknown)
 	{
 		std::vector<String> candidates;
@@ -135,7 +135,7 @@ namespace
 		return candidates;
 	}
 
-	String __fastcall ReadDiskFileRawText(const String& filePath, ModuleTextEncodingKind& encoding)
+	String  ReadDiskFileRawText(const String& filePath, ModuleTextEncodingKind& encoding)
 	{
 		if (!FileExists(filePath))
 		{
@@ -150,7 +150,7 @@ namespace
 		return DecodeModuleText(sb->Bytes, sb->Size, encoding);
 	}
 
-	bool __fastcall TryReadDiskModuleFile(const String& filePath,
+	bool  TryReadDiskModuleFile(const String& filePath,
 										  ModuleTextKind kind,
 										  const String& metadataGuid,
 										  const String& moduleDataGuid,
@@ -180,7 +180,7 @@ namespace
 		return true;
 	}
 
-	bool __fastcall TryLoadFromSourceCfByGuid(const String& metadataGuid,
+	bool  TryLoadFromSourceCfByGuid(const String& metadataGuid,
 											  ModuleTextKind kind,
 											  ModuleTextDocument& document)
 	{
@@ -259,7 +259,7 @@ namespace
 		return false;
 	}
 
-	bool __fastcall TryLoadFromSourceCfByModuleName(const String& moduleName,
+	bool  TryLoadFromSourceCfByModuleName(const String& moduleName,
 													ModuleTextKind kind,
 													ModuleTextDocument& document)
 	{
@@ -292,7 +292,7 @@ namespace
 		return false;
 	}
 
-	void __fastcall CollectGuidReferences(tree* node, std::vector<String>& guids)
+	void  CollectGuidReferences(tree* node, std::vector<String>& guids)
 	{
 		if (!node)
 			return;
@@ -304,7 +304,7 @@ namespace
 			CollectGuidReferences(node->get_subnode(i), guids);
 	}
 
-	String __fastcall FindEmbeddedModuleText(tree* node)
+	String  FindEmbeddedModuleText(tree* node)
 	{
 		if (!node)
 			return L"";
@@ -322,7 +322,7 @@ namespace
 		return L"";
 	}
 
-	String __fastcall ReadV8FileAsText(v8file* file)
+	String  ReadV8FileAsText(v8file* file)
 	{
 		if (!file)
 			return L"";
@@ -344,7 +344,7 @@ namespace
 		}
 	}
 
-	String __fastcall TryReadNamedTextFile(v8catalog* catalog, const String& fileName)
+	String  TryReadNamedTextFile(v8catalog* catalog, const String& fileName)
 	{
 		if (!catalog)
 			return L"";
@@ -357,7 +357,7 @@ namespace
 		return ModuleTextStorage::LooksLike1CModuleText(text) ? text : L"";
 	}
 
-	String __fastcall TryReadModuleContainer(v8file* file)
+	String  TryReadModuleContainer(v8file* file)
 	{
 		if (!file)
 			return L"";
@@ -412,7 +412,7 @@ namespace
 		}
 	}
 
-	void __fastcall WriteTextWithEncoding(TStream* stream, const String& text, ModuleTextEncodingKind encoding)
+	void  WriteTextWithEncoding(TStream* stream, const String& text, ModuleTextEncodingKind encoding)
 	{
 		TBytes bytes;
 
@@ -458,7 +458,7 @@ namespace
 
 namespace ModuleTextStorage
 {
-	bool __fastcall LooksLike1CModuleText(const String& value)
+	bool  LooksLike1CModuleText(const String& value)
 	{
 		return value.Length() > 0
 			&& (value.Pos(L"\n") > 0
@@ -469,7 +469,7 @@ namespace ModuleTextStorage
 				|| value.Pos(L"КонецФункции") > 0);
 	}
 
-	bool __fastcall IsGuidLike(const String& value)
+	bool  IsGuidLike(const String& value)
 	{
 		if (value.Length() != 36)
 			return false;
@@ -496,7 +496,7 @@ namespace ModuleTextStorage
 		return true;
 	}
 
-	String __fastcall NormalizeGuidFileName(const String& guid)
+	String  NormalizeGuidFileName(const String& guid)
 	{
 		String result = Trim(guid).LowerCase();
 		if (result.Length() >= 2 && result[1] == L'{' && result[result.Length()] == L'}')
@@ -504,7 +504,7 @@ namespace ModuleTextStorage
 		return result;
 	}
 
-	ModuleTextDocument __fastcall LoadCommonModule(v8catalog* parent, const String& metadataGuid, const String& moduleName)
+	ModuleTextDocument  LoadCommonModule(v8catalog* parent, const String& metadataGuid, const String& moduleName)
 	{
 		ModuleTextDocument document;
 		document.loaded = true;
@@ -562,7 +562,7 @@ namespace ModuleTextStorage
 		return document;
 	}
 
-	ModuleTextDocument __fastcall LoadCommonForm(v8catalog* parent, const String& metadataGuid, const String& formName)
+	ModuleTextDocument  LoadCommonForm(v8catalog* parent, const String& metadataGuid, const String& formName)
 	{
 		ModuleTextDocument document;
 		document.loaded = true;
@@ -588,7 +588,7 @@ namespace ModuleTextStorage
 		return document;
 	}
 
-	ModuleTextDocument __fastcall LoadByMetadataObject(v8catalog* parent, const String& metadataGuid, const String& objectName, ModuleTextKind kind)
+	ModuleTextDocument  LoadByMetadataObject(v8catalog* parent, const String& metadataGuid, const String& objectName, ModuleTextKind kind)
 	{
 		ModuleTextDocument document;
 		document.loaded = true;
@@ -642,7 +642,7 @@ namespace ModuleTextStorage
 		return document;
 	}
 
-	bool __fastcall SaveDocument(ModuleTextDocument& document, const String& newText, String& errorText)
+	bool  SaveDocument(ModuleTextDocument& document, const String& newText, String& errorText)
 	{
 		errorText = L"";
 
@@ -686,7 +686,7 @@ namespace ModuleTextStorage
 		}
 	}
 
-	String __fastcall DescribeLocation(const ModuleTextLocation& location)
+	String  DescribeLocation(const ModuleTextLocation& location)
 	{
 		if (!location.filePath.IsEmpty())
 			return location.filePath;

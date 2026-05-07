@@ -19,14 +19,14 @@ private:
     String storageName;  // Имя хранилища настроек
 
 public:
-    __fastcall TSettingsStorages();
-    __fastcall TSettingsStorages(v8catalog* _parent, const String& _guid);
-    __fastcall TSettingsStorages(v8catalog* _parent, const String& _guid, const String& _name);
-    virtual __fastcall ~TSettingsStorages();
+     TSettingsStorages();
+     TSettingsStorages(v8catalog* _parent, const String& _guid);
+     TSettingsStorages(v8catalog* _parent, const String& _guid, const String& _name);
+    virtual  ~TSettingsStorages();
 
     // Методы для получения имени хранилища настроек
-    String __fastcall GetStorageName();
-    void __fastcall SetStorageName(String _name);
+    String  GetStorageName();
+    void  SetStorageName(String _name);
 
     // Реализация виртуальных методов BaseMetadataObject
     std::vector<std::unique_ptr<TRequisite>>& getAttributes() override;
@@ -35,7 +35,7 @@ public:
     std::vector<std::unique_ptr<TTabular>>& getTabularSections() override;
     std::vector<std::unique_ptr<TForm1C>>& getForms() override;
 
-    void __fastcall initializeFromTree() override;
+    void  initializeFromTree() override;
 
 private:
     // Внутренние хранилища для совместимости с интерфейсом

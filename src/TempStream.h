@@ -8,8 +8,8 @@
 class TTempStreamStaticInit
 {
 public:
-	__fastcall TTempStreamStaticInit();
-	__fastcall ~TTempStreamStaticInit();
+	 TTempStreamStaticInit();
+	 ~TTempStreamStaticInit();
 };
 
 
@@ -20,10 +20,10 @@ public:
 	static String tempcat;
 	static String tempname;
 	static long tempno;
-	static String __fastcall gettempname();
+	static String  gettempname();
 
-	__fastcall TTempStream();
-	virtual __fastcall ~TTempStream();
+	 TTempStream();
+	virtual  ~TTempStream();
 };
 
 //---------------------------------------------------------------------------

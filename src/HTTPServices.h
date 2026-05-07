@@ -18,14 +18,14 @@ private:
     // data хранится в унаследованном поле root_data из BaseMetadataObject
 
 public:
-    __fastcall THTTPServices();
-    __fastcall THTTPServices(v8catalog* _parent, const String& _guid);
-    __fastcall THTTPServices(v8catalog* _parent, const String& _guid, const String& _name);
-    virtual __fastcall ~THTTPServices();
+     THTTPServices();
+     THTTPServices(v8catalog* _parent, const String& _guid);
+     THTTPServices(v8catalog* _parent, const String& _guid, const String& _name);
+    virtual  ~THTTPServices();
 
     // Методы для получения имени HTTP-сервиса
-    String __fastcall GetHTTPServicesName();
-    void __fastcall SetHTTPServicesName(String _name);
+    String  GetHTTPServicesName();
+    void  SetHTTPServicesName(String _name);
 
     // Реализация виртуальных методов BaseMetadataObject
     std::vector<std::unique_ptr<TRequisite>>& getAttributes() override;
@@ -34,7 +34,7 @@ public:
     std::vector<std::unique_ptr<TTabular>>& getTabularSections() override;
     std::vector<std::unique_ptr<TForm1C>>& getForms() override;
 
-    void __fastcall initializeFromTree() override;
+    void  initializeFromTree() override;
 
 private:
     // Внутренние хранилища для совместимости с интерфейсом

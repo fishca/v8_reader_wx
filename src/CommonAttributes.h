@@ -19,14 +19,14 @@ private:
     // attributeName хранится в унаследованном поле name из BaseMetadataObject
 
 public:
-    __fastcall TCommonAttributes();
-    __fastcall TCommonAttributes(v8catalog* _parent, const String& _guid);
-    __fastcall TCommonAttributes(v8catalog* _parent, const String& _guid, const String& _name);
-    virtual __fastcall ~TCommonAttributes();
+     TCommonAttributes();
+     TCommonAttributes(v8catalog* _parent, const String& _guid);
+     TCommonAttributes(v8catalog* _parent, const String& _guid, const String& _name);
+    virtual  ~TCommonAttributes();
 
     // Методы для получения имени общего реквизита
-    String __fastcall GetAttributeName();
-    void __fastcall SetAttributeName(String _name);
+    String  GetAttributeName();
+    void  SetAttributeName(String _name);
 
     // Реализация виртуальных методов BaseMetadataObject
     std::vector<std::unique_ptr<TRequisite>>& getAttributes() override;
@@ -35,7 +35,7 @@ public:
     std::vector<std::unique_ptr<TTabular>>& getTabularSections() override;
     std::vector<std::unique_ptr<TForm1C>>& getForms() override;
 
-    void __fastcall initializeFromTree() override;
+    void  initializeFromTree() override;
 
 private:
     // Внутренние хранилища для совместимости с интерфейсом

@@ -7,18 +7,18 @@
 #pragma package(smart_init)
 
 
-__fastcall TComand::TComand()
+ TComand::TComand()
 {
 
 }
 
-__fastcall TComand::TComand(String _name, String _guid)
+ TComand::TComand(String _name, String _guid)
 {
 	name = _name;
     guid = _guid;
 }
 
-__fastcall TComand::~TComand()
+ TComand::~TComand()
 {
 
 }

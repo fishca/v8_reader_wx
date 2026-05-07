@@ -12,7 +12,7 @@ long TTempStream::tempno = 0;
 TTempStreamStaticInit TempStreamStaticInit;
 
 //---------------------------------------------------------------------------
-__fastcall TTempStreamStaticInit::TTempStreamStaticInit()
+ TTempStreamStaticInit::TTempStreamStaticInit()
 {
 	wchar_t temppath[MAX_PATH];
 	wchar_t tempfile[MAX_PATH];
@@ -29,26 +29,26 @@ __fastcall TTempStreamStaticInit::TTempStreamStaticInit()
 }
 
 //---------------------------------------------------------------------------
-__fastcall TTempStreamStaticInit::~TTempStreamStaticInit()
+ TTempStreamStaticInit::~TTempStreamStaticInit()
 {
 	RemoveDir(TTempStream::tempcat);
 }
 
 //---------------------------------------------------------------------------
-__fastcall TTempStream::TTempStream() : THandleStream(0)
+ TTempStream::TTempStream() : THandleStream(0)
 {
 	FHandle = (THandle)CreateFile(gettempname().c_str(), GENERIC_READ | GENERIC_WRITE, 0, NULL, CREATE_NEW, FILE_ATTRIBUTE_TEMPORARY | FILE_FLAG_DELETE_ON_CLOSE, NULL);
 }
 
 //---------------------------------------------------------------------------
-__fastcall TTempStream::~TTempStream()
+ TTempStream::~TTempStream()
 {
 	CloseHandle((HANDLE)FHandle);
 }
 
 //---------------------------------------------------------------------------
 
-String __fastcall TTempStream::gettempname()
+String  TTempStream::gettempname()
 {
 	return tempname + InterlockedIncrement(&tempno);
 }

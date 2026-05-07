@@ -430,7 +430,7 @@ static String FindUnpackedModuleTextByNodeName(const String& nodeName)
 	return L"";
 }
 
-void __fastcall TMainForm::ModuleMemoScanForFoldRanges(TObject *Sender,
+void  TMainForm::ModuleMemoScanForFoldRanges(TObject *Sender,
 	TSynFoldRanges *FoldRanges, TStrings *LinesToScan, int FromLine, int ToLine)
 {
 	if (FoldRanges == NULL || LinesToScan == NULL)
@@ -613,7 +613,7 @@ static void LogHeapStatus(const String& stage, const String& guid = L"", const S
 	msreg->AddMessage(stage, msInfo, ts);
 }
 
-void __fastcall TMainForm::SetDefaultHighlightSettingsControls()
+void  TMainForm::SetDefaultHighlightSettingsControls()
 {
 	if (HighlightKeywordColorBox) HighlightKeywordColorBox->Selected = DefaultHighlightKeywordColor;
 	if (HighlightCommentColorBox) HighlightCommentColorBox->Selected = DefaultHighlightCommentColor;
@@ -627,7 +627,7 @@ void __fastcall TMainForm::SetDefaultHighlightSettingsControls()
 	if (UnpackCheckBox) UnpackCheckBox->Checked = false;
 }
 
-void __fastcall TMainForm::ApplyHighlightSettings()
+void  TMainForm::ApplyHighlightSettings()
 {
 	if (!Syn1CSyn && !ModuleGeneralSyn)
 		return;
@@ -669,7 +669,7 @@ void __fastcall TMainForm::ApplyHighlightSettings()
 	if (HighlightPreviewMemo) HighlightPreviewMemo->Invalidate();
 }
 
-void __fastcall TMainForm::LoadHighlightSettings()
+void  TMainForm::LoadHighlightSettings()
 {
 	HighlightSettingsLoading = true;
 	std::unique_ptr<TIniFile> ini(new TIniFile(GetHighlightSettingsFileName()));
@@ -688,7 +688,7 @@ void __fastcall TMainForm::LoadHighlightSettings()
 	ApplyHighlightSettings();
 }
 
-void __fastcall TMainForm::SaveHighlightSettings()
+void  TMainForm::SaveHighlightSettings()
 {
 	std::unique_ptr<TIniFile> ini(new TIniFile(GetHighlightSettingsFileName()));
 	ini->WriteInteger(L"Colors", L"Keyword", HighlightKeywordColorBox->Selected);
@@ -703,7 +703,7 @@ void __fastcall TMainForm::SaveHighlightSettings()
 	ini->WriteBool(L"Style", L"Unpack", UnpackCheckBox->Checked);
 }
 
-void __fastcall TMainForm::HighlightSettingsChanged(TObject *Sender)
+void  TMainForm::HighlightSettingsChanged(TObject *Sender)
 {
 	if (HighlightSettingsLoading)
 		return;
@@ -712,7 +712,7 @@ void __fastcall TMainForm::HighlightSettingsChanged(TObject *Sender)
 	SaveHighlightSettings();
 }
 
-void __fastcall TMainForm::ResetHighlightSettingsClick(TObject *Sender)
+void  TMainForm::ResetHighlightSettingsClick(TObject *Sender)
 {
 	HighlightSettingsLoading = true;
 	SetDefaultHighlightSettingsControls();
@@ -721,7 +721,7 @@ void __fastcall TMainForm::ResetHighlightSettingsClick(TObject *Sender)
 	SaveHighlightSettings();
 }
 
-void __fastcall TMainForm::CreateHighlightSettingsTab()
+void  TMainForm::CreateHighlightSettingsTab()
 {
 	TTabSheet* previousActivePage = pagesEdit ? pagesEdit->ActivePage : nullptr;
 	HighlightSettingsTab = new TTabSheet(this);
@@ -828,7 +828,7 @@ void __fastcall TMainForm::CreateHighlightSettingsTab()
 }
 
 //---------------------------------------------------------------------------
-__fastcall TMainForm::TMainForm(TComponent* Owner) : TForm(Owner), HighlightSettingsLoading(false),
+ TMainForm::TMainForm(TComponent* Owner) : TForm(Owner), HighlightSettingsLoading(false),
 	ModuleGeneralSyn(nullptr), ModuleSelectionTimer(nullptr), LastModuleNodeShown(nullptr),
 	CurrentModuleNode(nullptr), CurrentModuleObject(nullptr), LoadingModuleText(false),
 	CurrentModuleDirty(false), CurrentModuleOriginalText(L""), CurrentModuleKind(ModuleTextKind::Unknown),
@@ -876,7 +876,7 @@ __fastcall TMainForm::TMainForm(TComponent* Owner) : TForm(Owner), HighlightSett
 }
 
 //---------------------------------------------------------------------------
-void __fastcall TMainForm::ResetLoadProgress(int maxValue, const String& statusText)
+void  TMainForm::ResetLoadProgress(int maxValue, const String& statusText)
 {
 	if (maxValue < 1)
 		maxValue = 1;
@@ -894,7 +894,7 @@ void __fastcall TMainForm::ResetLoadProgress(int maxValue, const String& statusT
 	Application->ProcessMessages();
 }
 
-void __fastcall TMainForm::AdvanceLoadProgress(const String& statusText)
+void  TMainForm::AdvanceLoadProgress(const String& statusText)
 {
 	if (!LoadProgressBar->Visible)
 		LoadProgressBar->Visible = true;
@@ -909,7 +909,7 @@ void __fastcall TMainForm::AdvanceLoadProgress(const String& statusText)
 	Application->ProcessMessages();
 }
 
-void __fastcall TMainForm::CompleteLoadProgress(const String& statusText)
+void  TMainForm::CompleteLoadProgress(const String& statusText)
 {
 	LoadProgressBar->Position = LoadProgressBar->Max;
 	if (!statusText.IsEmpty())
@@ -920,7 +920,7 @@ void __fastcall TMainForm::CompleteLoadProgress(const String& statusText)
 }
 
 //---------------------------------------------------------------------------
-void __fastcall TMainForm::btnOpenEditNameClick(TObject *Sender)
+void  TMainForm::btnOpenEditNameClick(TObject *Sender)
 {
 	if (dlgOpenCF->Execute())
 	{
@@ -932,14 +932,14 @@ void __fastcall TMainForm::btnOpenEditNameClick(TObject *Sender)
 }
 
 //---------------------------------------------------------------------------
-void __fastcall TMainForm::btnGOClick(TObject *Sender)
+void  TMainForm::btnGOClick(TObject *Sender)
 {
 	std::vector<std::string> filter;
 	//v8unpack::Parse(AnsiString(EditNameCF->Text).c_str(), AnsiString(editFolderName->Text).c_str(), filter);
 }
 
 //---------------------------------------------------------------------------
-void __fastcall TMainForm::VirtualStringTreeValue1CInitNode(TBaseVirtualTree *Sender, PVirtualNode ParentNode, PVirtualNode Node, TVirtualNodeInitStates &InitialStates)
+void  TMainForm::VirtualStringTreeValue1CInitNode(TBaseVirtualTree *Sender, PVirtualNode ParentNode, PVirtualNode Node, TVirtualNodeInitStates &InitialStates)
 {
 	if(!ParentNode)
 	{
@@ -949,7 +949,7 @@ void __fastcall TMainForm::VirtualStringTreeValue1CInitNode(TBaseVirtualTree *Se
 }
 
 //---------------------------------------------------------------------------
-void __fastcall TMainForm::VirtualStringTreeValue1CGetText(TBaseVirtualTree *Sender, PVirtualNode Node, TColumnIndex Column, TVSTTextType TextType, UnicodeString &CellText)
+void  TMainForm::VirtualStringTreeValue1CGetText(TBaseVirtualTree *Sender, PVirtualNode Node, TColumnIndex Column, TVSTTextType TextType, UnicodeString &CellText)
 {
 	VirtualTreeData *NodeData = (VirtualTreeData*)Sender->GetNodeData(Node);
 	CellText = NodeData->Name;
@@ -965,7 +965,7 @@ void __fastcall TMainForm::VirtualStringTreeValue1CGetText(TBaseVirtualTree *Sen
 }
 //---------------------------------------------------------------------------
 
-void __fastcall TMainForm::FillTreeMDConcrete(TVirtualStringTree *tree1C, PVirtualNode parentNode, const MetadataVector<TObject>& mdData, const String& md_name, int imgIndex)
+void  TMainForm::FillTreeMDConcrete(TVirtualStringTree *tree1C, PVirtualNode parentNode, const MetadataVector<TObject>& mdData, const String& md_name, int imgIndex)
 {
 	for(size_t i = 0; i < mdData.size(); i++)
 	{
@@ -992,7 +992,7 @@ void __fastcall TMainForm::FillTreeMDConcrete(TVirtualStringTree *tree1C, PVirtu
 }
 
 
-void __fastcall TMainForm::FillTreeMD(PVirtualNode parentNode, const MetadataVector<TObject>& mdData, const String& md_name, int imgIndex)
+void  TMainForm::FillTreeMD(PVirtualNode parentNode, const MetadataVector<TObject>& mdData, const String& md_name, int imgIndex)
 {
 static const std::unordered_set<String> catalogTypes = {md_Catalogs, md_Documents, md_Reports, md_DataProcessors, md_ChartsOfCharacteristicTypes, md_ChartOfCalculationTypes, md_BusinessProcesses, md_Tasks};
     static const std::unordered_set<String> journalTypes = {md_DocumentJournals};
@@ -1085,7 +1085,7 @@ static const std::unordered_set<String> catalogTypes = {md_Catalogs, md_Document
 	}
 }
 
-void __fastcall TMainForm::FillVirtualTree() {
+void  TMainForm::FillVirtualTree() {
     // Добавление команд и форм плана обмена
     PVirtualNode exchangePlansNode = VirtualStringTreeValue1C->AddChild(nullptr);
     VirtualTreeData *exchangePlansData = (VirtualTreeData*)VirtualStringTreeValue1C->GetNodeData(exchangePlansNode);
@@ -1360,14 +1360,14 @@ void __fastcall TMainForm::FillVirtualTree() {
 }
 
 
-void __fastcall TMainForm::TreeInit()
+void  TMainForm::TreeInit()
 {
 	// Заготовка
 }
 
 
 
-void __fastcall TMainForm::VirtualStringTreeValue1CFreeNode(TBaseVirtualTree *Sender, PVirtualNode Node)
+void  TMainForm::VirtualStringTreeValue1CFreeNode(TBaseVirtualTree *Sender, PVirtualNode Node)
 {
 	VirtualTreeData *NodeData =(VirtualTreeData*)Sender->GetNodeData(Node);
 	NodeData->Name = L"";
@@ -1376,7 +1376,7 @@ void __fastcall TMainForm::VirtualStringTreeValue1CFreeNode(TBaseVirtualTree *Se
 }
 //---------------------------------------------------------------------------
 
-void __fastcall TMainForm::VirtualStringTreeValue1CGetImageIndex(TBaseVirtualTree *Sender, PVirtualNode Node, TVTImageKind Kind,
+void  TMainForm::VirtualStringTreeValue1CGetImageIndex(TBaseVirtualTree *Sender, PVirtualNode Node, TVTImageKind Kind,
 		  TColumnIndex Column, bool &Ghosted, TImageIndex &ImageIndex)
 {
 	VirtualTreeData *NodeRec = (VirtualTreeData*)VirtualStringTreeValue1C->GetNodeData(Node);
@@ -1387,7 +1387,7 @@ void __fastcall TMainForm::VirtualStringTreeValue1CGetImageIndex(TBaseVirtualTre
 }
 //---------------------------------------------------------------------------
 
-void __fastcall TMainForm::Button1Click(TObject *Sender)
+void  TMainForm::Button1Click(TObject *Sender)
 {
 	if (dlgOpenCatalog->Execute())
 	{
@@ -1397,7 +1397,7 @@ void __fastcall TMainForm::Button1Click(TObject *Sender)
 }
 //---------------------------------------------------------------------------
 
-void __fastcall TMainForm::ActionFileOpenExecute(TObject *Sender)
+void  TMainForm::ActionFileOpenExecute(TObject *Sender)
 {
 	ULONGLONG loadStartTick = 0;
 	ULONGLONG loadEndTick = 0;
@@ -1537,7 +1537,7 @@ void __fastcall TMainForm::ActionFileOpenExecute(TObject *Sender)
 
 
 
-void __fastcall TMainForm::ActionOpenCFExecute(TObject *Sender)
+void  TMainForm::ActionOpenCFExecute(TObject *Sender)
 {
 	TMainForm::ActionFileOpenExecute(Sender);
 }
@@ -1545,7 +1545,7 @@ void __fastcall TMainForm::ActionOpenCFExecute(TObject *Sender)
 //---------------------------------------------------------------------------
 //                           Messager
 //---------------------------------------------------------------------------
-__fastcall Messager::Messager(TListView* lv, TStatusBar* sb)
+ Messager::Messager(TListView* lv, TStatusBar* sb)
 {
 	ListView = lv;
 	StatusBar = sb;
@@ -1557,30 +1557,30 @@ __fastcall Messager::Messager(TListView* lv, TStatusBar* sb)
 	FormatSettings.LongTimeFormat = L"hh:mm:ss:zzz";
 }
 
-void __fastcall Messager::setUiMessagesEnabled(bool enabled)
+void  Messager::setUiMessagesEnabled(bool enabled)
 {
 	uiMessagesEnabled = enabled;
 }
 
-bool __fastcall Messager::getUiMessagesEnabled() const
+bool  Messager::getUiMessagesEnabled() const
 {
 	return uiMessagesEnabled;
 }
 
-void __fastcall Messager::setFileLoggingEnabled(bool enabled)
+void  Messager::setFileLoggingEnabled(bool enabled)
 {
 	fileLoggingEnabled = enabled;
 	if (!fileLoggingEnabled)
 		logfile = L"";
 }
 
-bool __fastcall Messager::getFileLoggingEnabled() const
+bool  Messager::getFileLoggingEnabled() const
 {
 	return fileLoggingEnabled;
 }
 
 //---------------------------------------------------------------------------
-void __fastcall Messager::setlogfile(String _logfile)
+void  Messager::setlogfile(String _logfile)
 {
 	if(!fileLoggingEnabled)
 	{
@@ -1592,21 +1592,21 @@ void __fastcall Messager::setlogfile(String _logfile)
     	DeleteFile(logfile);
 }
 
-String __fastcall Messager::getlogfile() const
+String  Messager::getlogfile() const
 {
 	return logfile;
 }
 
 
 //---------------------------------------------------------------------------
-void __fastcall Messager::Status(const String& message)
+void  Messager::Status(const String& message)
 {
 	StatusBar->SimpleText = message;
 	StatusBar->Update();
 }
 
 //---------------------------------------------------------------------------
-void __fastcall Messager::AddMessage(const String& message, const MessageState mstate, TStringList* param)
+void  Messager::AddMessage(const String& message, const MessageState mstate, TStringList* param)
 {
 	TFileStream* log = NULL;
 	TStreamWriter* sw;
@@ -3087,13 +3087,13 @@ void get_cf_name(tree* tr, Messager* mess)
 
 }
 
-void __fastcall TMainForm::FormDestroy(TObject *Sender)
+void  TMainForm::FormDestroy(TObject *Sender)
 {
 	// GlobalCF автоматически удаляется через std::unique_ptr
 }
 //---------------------------------------------------------------------------
 
-void __fastcall TMainForm::MemoObjectChange(TObject *Sender)
+void  TMainForm::MemoObjectChange(TObject *Sender)
 {
 	if (LoadingModuleText || !MemoObject || !CurrentModuleObject)
 		return;
@@ -3112,19 +3112,19 @@ void __fastcall TMainForm::MemoObjectChange(TObject *Sender)
 }
 //---------------------------------------------------------------------------
 
-void __fastcall TMainForm::ActionSaveModuleExecute(TObject *Sender)
+void  TMainForm::ActionSaveModuleExecute(TObject *Sender)
 {
 	SaveCurrentModuleTextIfNeeded(false);
 }
 //---------------------------------------------------------------------------
 
-void __fastcall TMainForm::FormCloseQuery(TObject *Sender, bool &CanClose)
+void  TMainForm::FormCloseQuery(TObject *Sender, bool &CanClose)
 {
 	CanClose = SaveCurrentModuleTextIfNeeded(true);
 }
 //---------------------------------------------------------------------------
 
-void __fastcall TMainForm::SetModuleEditorState(BaseMetadataObject* metadataObject, PVirtualNode node, const String& text,
+void  TMainForm::SetModuleEditorState(BaseMetadataObject* metadataObject, PVirtualNode node, const String& text,
 	ModuleTextKind kind)
 {
 	CurrentModuleNode = node;
@@ -3148,7 +3148,7 @@ void __fastcall TMainForm::SetModuleEditorState(BaseMetadataObject* metadataObje
 }
 //---------------------------------------------------------------------------
 
-bool __fastcall TMainForm::SaveCurrentModuleTextIfNeeded(bool forcePrompt)
+bool  TMainForm::SaveCurrentModuleTextIfNeeded(bool forcePrompt)
 {
 	if ((!CurrentModuleObject && !CurrentModuleStandalone) || !CurrentModuleDirty)
 		return true;
@@ -3214,13 +3214,13 @@ bool __fastcall TMainForm::SaveCurrentModuleTextIfNeeded(bool forcePrompt)
 }
 //---------------------------------------------------------------------------
 
-bool __fastcall TMainForm::FlushCurrentModuleBeforeBuild()
+bool  TMainForm::FlushCurrentModuleBeforeBuild()
 {
 	return SaveCurrentModuleTextIfNeeded(false);
 }
 //---------------------------------------------------------------------------
 
-void __fastcall TMainForm::ShowMetadataNodeText(PVirtualNode Node)
+void  TMainForm::ShowMetadataNodeText(PVirtualNode Node)
 {
 	if (!MemoObject)
 		return;
@@ -3365,25 +3365,25 @@ void __fastcall TMainForm::ShowMetadataNodeText(PVirtualNode Node)
 		pagesEdit->ActivePage = TabModuleObject;
 }
 
-void __fastcall TMainForm::VirtualStringTreeValue1CClick(TObject *Sender)
+void  TMainForm::VirtualStringTreeValue1CClick(TObject *Sender)
 {
 	ShowMetadataNodeText(GetActiveTreeNode(VirtualStringTreeValue1C));
 }
 //---------------------------------------------------------------------------
 
-void __fastcall TMainForm::VirtualStringTreeValue1CChange(TBaseVirtualTree *Sender, PVirtualNode Node)
+void  TMainForm::VirtualStringTreeValue1CChange(TBaseVirtualTree *Sender, PVirtualNode Node)
 {
 	ShowMetadataNodeText(Node);
 }
 //---------------------------------------------------------------------------
 
-void __fastcall TMainForm::VirtualStringTreeValue1CNodeClick(TBaseVirtualTree *Sender, const THitInfo &HitInfo)
+void  TMainForm::VirtualStringTreeValue1CNodeClick(TBaseVirtualTree *Sender, const THitInfo &HitInfo)
 {
 	ShowMetadataNodeText(HitInfo.HitNode);
 }
 //---------------------------------------------------------------------------
 
-void __fastcall TMainForm::ModuleSelectionTimerTimer(TObject *Sender)
+void  TMainForm::ModuleSelectionTimerTimer(TObject *Sender)
 {
 	PVirtualNode node = GetActiveTreeNode(VirtualStringTreeValue1C);
 	if (!node || node == LastModuleNodeShown)
@@ -3393,20 +3393,20 @@ void __fastcall TMainForm::ModuleSelectionTimerTimer(TObject *Sender)
 }
 //---------------------------------------------------------------------------
 
-void __fastcall TMainForm::VirtualStringTreeValue1CFocusChanged(TBaseVirtualTree *Sender, PVirtualNode Node,
+void  TMainForm::VirtualStringTreeValue1CFocusChanged(TBaseVirtualTree *Sender, PVirtualNode Node,
 		  TColumnIndex Column)
 {
 	ShowMetadataNodeText(Node);
 }
 //---------------------------------------------------------------------------
 
-void __fastcall TMainForm::N4Click(TObject *Sender)
+void  TMainForm::N4Click(TObject *Sender)
 {
     Close();
 }
 //---------------------------------------------------------------------------
 
-void __fastcall TMainForm::ActionSaveCFExecute(TObject *Sender)
+void  TMainForm::ActionSaveCFExecute(TObject *Sender)
 {
 	if (!FlushCurrentModuleBeforeBuild())
 		return;

@@ -8,7 +8,7 @@
 
 namespace
 {
-	bool __fastcall LooksLike1CModuleText(const String& value)
+	bool  LooksLike1CModuleText(const String& value)
 	{
 		return value.Pos(L"Процедура ") > 0
 			|| value.Pos(L"Функция ") > 0
@@ -17,7 +17,7 @@ namespace
 			|| value.Pos(L"\n") > 0;
 	}
 
-	String __fastcall FindEmbeddedModuleText(tree* node)
+	String  FindEmbeddedModuleText(tree* node)
 	{
 		if (!node)
 			return L"";
@@ -35,7 +35,7 @@ namespace
 		return L"";
 	}
 
-	String __fastcall GetManagedFormModuleText(tree* root)
+	String  GetManagedFormModuleText(tree* root)
 	{
 		if (!root || root->get_num_subnode() <= 0)
 			return L"";
@@ -52,7 +52,7 @@ namespace
 	}
 }
 
-__fastcall TCommonForms::TCommonForms() : BaseMetadataObject()
+ TCommonForms::TCommonForms() : BaseMetadataObject()
 {
     name = "";
     root_data.reset();
@@ -61,7 +61,7 @@ __fastcall TCommonForms::TCommonForms() : BaseMetadataObject()
 	textDocument.dirty = false;
 }
 
-__fastcall TCommonForms::TCommonForms(v8catalog* _parent, const String& _guid) : BaseMetadataObject(_parent, _guid)
+ TCommonForms::TCommonForms(v8catalog* _parent, const String& _guid) : BaseMetadataObject(_parent, _guid)
 {
     name = "";
     root_data.reset();
@@ -70,7 +70,7 @@ __fastcall TCommonForms::TCommonForms(v8catalog* _parent, const String& _guid) :
 	textDocument.dirty = false;
 }
 
-__fastcall TCommonForms::TCommonForms(v8catalog* _parent, const String& _guid, const String& _name) : BaseMetadataObject(_parent, _guid, _name)
+ TCommonForms::TCommonForms(v8catalog* _parent, const String& _guid, const String& _name) : BaseMetadataObject(_parent, _guid, _name)
 {
     name = _name;
     root_data.reset();
@@ -79,21 +79,21 @@ __fastcall TCommonForms::TCommonForms(v8catalog* _parent, const String& _guid, c
 	textDocument.dirty = false;
 }
 
-__fastcall TCommonForms::~TCommonForms()
+ TCommonForms::~TCommonForms()
 {
 }
 
-String __fastcall TCommonForms::GetFormName()
+String  TCommonForms::GetFormName()
 {
     return name;
 }
 
-void __fastcall TCommonForms::SetFormName(String _name)
+void  TCommonForms::SetFormName(String _name)
 {
     name = _name;
 }
 
-void __fastcall TCommonForms::LoadTextIfNeeded()
+void  TCommonForms::LoadTextIfNeeded()
 {
 	if (textDocument.loaded)
 		return;
@@ -102,7 +102,7 @@ void __fastcall TCommonForms::LoadTextIfNeeded()
 	textDocument.loaded = true;
 }
 
-void __fastcall TCommonForms::RefreshEditableTextIfNeeded()
+void  TCommonForms::RefreshEditableTextIfNeeded()
 {
 	LoadTextIfNeeded();
 	if (textDocument.location.editable)
@@ -113,13 +113,13 @@ void __fastcall TCommonForms::RefreshEditableTextIfNeeded()
 		textDocument = refreshed;
 }
 
-String __fastcall TCommonForms::GetText()
+String  TCommonForms::GetText()
 {
 	LoadTextIfNeeded();
 	return textDocument.text;
 }
 
-void __fastcall TCommonForms::SetText(String _text)
+void  TCommonForms::SetText(String _text)
 {
 	LoadTextIfNeeded();
 	textDocument.text = _text;
@@ -127,40 +127,40 @@ void __fastcall TCommonForms::SetText(String _text)
 	textDocument.dirty = true;
 }
 
-ModuleTextDocument& __fastcall TCommonForms::GetTextDocument()
+ModuleTextDocument&  TCommonForms::GetTextDocument()
 {
 	RefreshEditableTextIfNeeded();
 	return textDocument;
 }
 
-bool __fastcall TCommonForms::SaveTextToSource(const String& newText, String& errorText)
+bool  TCommonForms::SaveTextToSource(const String& newText, String& errorText)
 {
 	RefreshEditableTextIfNeeded();
 	return ModuleTextStorage::SaveDocument(textDocument, newText, errorText);
 }
 
-bool __fastcall TCommonForms::HasEditableModuleText()
+bool  TCommonForms::HasEditableModuleText()
 {
 	RefreshEditableTextIfNeeded();
 	return !textDocument.text.IsEmpty() || textDocument.location.editable;
 }
 
-String __fastcall TCommonForms::GetEditableModuleText()
+String  TCommonForms::GetEditableModuleText()
 {
 	return GetText();
 }
 
-void __fastcall TCommonForms::SetEditableModuleText(const String& value)
+void  TCommonForms::SetEditableModuleText(const String& value)
 {
 	SetText(value);
 }
 
-bool __fastcall TCommonForms::SaveEditableModuleText(const String& value, String& errorText)
+bool  TCommonForms::SaveEditableModuleText(const String& value, String& errorText)
 {
 	return SaveTextToSource(value, errorText);
 }
 
-ModuleTextLocation __fastcall TCommonForms::GetEditableModuleLocation()
+ModuleTextLocation  TCommonForms::GetEditableModuleLocation()
 {
 	RefreshEditableTextIfNeeded();
 	return textDocument.location;
@@ -191,7 +191,7 @@ std::vector<std::unique_ptr<TForm1C>>& TCommonForms::getForms()
     return forms;
 }
 
-void __fastcall TCommonForms::initializeFromTree()
+void  TCommonForms::initializeFromTree()
 {
     // Инициализация общей формы из дерева метаданных
     // Имя общей формы уже установлено в конструкторе
