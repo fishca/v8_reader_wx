@@ -1,26 +1,30 @@
 ```
 # Build artifacts
-build/
-CMakeCache.txt
-CMakeFiles/
-Makefile
-cmake_install.cmake
-CPackConfig.cmake
-CPackSourceConfig.cmake
-
-# Executables and binaries
-bin/
-*.exe
-*.dll
-*.so
-*.a
-*.lib
-*.obj
 *.o
+*.obj
+*.a
+*.so
+*.dll
+*.exe
+*.out
 
-# CMake build system
-CMakeFiles/
-CMakeCache.txt
-cmake_install.cmake
-Makefile
+# Dependencies
+3rdparty/
+
+# Logs and temp files
+*.log
+*.tmp
+
+# Environment
+.env
+.env.local
+*.env.*
+
+# Editors
+.vscode/
+.idea/
+
+# OS specific
+.DS_Store
+Thumbs.db
 ```
