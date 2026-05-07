@@ -17,13 +17,13 @@ private:
     // data хранится в унаследованном поле root_data из BaseMetadataObject
 
 public:
-    __fastcall TXDTOPackages();
-    __fastcall TXDTOPackages(v8catalog* _parent, const String& _guid);
-    __fastcall TXDTOPackages(v8catalog* _parent, const String& _guid, const String& _name);
-    virtual __fastcall ~TXDTOPackages();
+     TXDTOPackages();
+     TXDTOPackages(v8catalog* _parent, const String& _guid);
+     TXDTOPackages(v8catalog* _parent, const String& _guid, const String& _name);
+    virtual  ~TXDTOPackages();
 
     // Методы для получения имени XDTO-пакета
-    String __fastcall GetXDTOPackageName();
+    String  GetXDTOPackageName();
 
     // Реализация виртуальных методов BaseMetadataObject
     std::vector<std::unique_ptr<TRequisite>>& getAttributes() override;
@@ -32,7 +32,7 @@ public:
     std::vector<std::unique_ptr<TTabular>>& getTabularSections() override;
     std::vector<std::unique_ptr<TForm1C>>& getForms() override;
 
-    void __fastcall initializeFromTree() override;
+    void  initializeFromTree() override;
 
 private:
     // Внутренние хранилища для совместимости с интерфейсом

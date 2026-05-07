@@ -71,28 +71,28 @@ namespace
     }
 }
 
-__fastcall MetadataObjectWithSections::MetadataObjectWithSections()
+ MetadataObjectWithSections::MetadataObjectWithSections()
     : BaseMetadataObject()
 {
 	objectModuleDocument.loaded = false;
 	managerModuleDocument.loaded = false;
 }
 
-__fastcall MetadataObjectWithSections::MetadataObjectWithSections(v8catalog* _parent, const String& _guid)
+ MetadataObjectWithSections::MetadataObjectWithSections(v8catalog* _parent, const String& _guid)
     : BaseMetadataObject(_parent, _guid)
 {
 	objectModuleDocument.loaded = false;
 	managerModuleDocument.loaded = false;
 }
 
-__fastcall MetadataObjectWithSections::MetadataObjectWithSections(v8catalog* _parent, const String& _guid, const String& _name)
+ MetadataObjectWithSections::MetadataObjectWithSections(v8catalog* _parent, const String& _guid, const String& _name)
     : BaseMetadataObject(_parent, _guid, _name)
 {
 	objectModuleDocument.loaded = false;
 	managerModuleDocument.loaded = false;
 }
 
-__fastcall MetadataObjectWithSections::~MetadataObjectWithSections()
+ MetadataObjectWithSections::~MetadataObjectWithSections()
 {
 }
 
@@ -216,12 +216,12 @@ void MetadataObjectWithSections::initializeFromTreeWithPaths(const MetadataTreeP
 	}
 }
 
-ModuleTextDocument& __fastcall MetadataObjectWithSections::GetModuleDocument(ModuleTextKind kind)
+ModuleTextDocument&  MetadataObjectWithSections::GetModuleDocument(ModuleTextKind kind)
 {
 	return kind == ModuleTextKind::ManagerModule ? managerModuleDocument : objectModuleDocument;
 }
 
-void __fastcall MetadataObjectWithSections::RefreshModuleDocument(ModuleTextKind kind)
+void  MetadataObjectWithSections::RefreshModuleDocument(ModuleTextKind kind)
 {
 	if (!SupportsMetadataObjectModuleKind(kind))
 		return;
@@ -238,32 +238,32 @@ void __fastcall MetadataObjectWithSections::RefreshModuleDocument(ModuleTextKind
 	document.loaded = true;
 }
 
-bool __fastcall MetadataObjectWithSections::HasEditableModuleText()
+bool  MetadataObjectWithSections::HasEditableModuleText()
 {
 	return HasEditableModuleText(ModuleTextKind::ObjectModule);
 }
 
-String __fastcall MetadataObjectWithSections::GetEditableModuleText()
+String  MetadataObjectWithSections::GetEditableModuleText()
 {
 	return GetEditableModuleText(ModuleTextKind::ObjectModule);
 }
 
-void __fastcall MetadataObjectWithSections::SetEditableModuleText(const String& value)
+void  MetadataObjectWithSections::SetEditableModuleText(const String& value)
 {
 	SetEditableModuleText(ModuleTextKind::ObjectModule, value);
 }
 
-bool __fastcall MetadataObjectWithSections::SaveEditableModuleText(const String& value, String& errorText)
+bool  MetadataObjectWithSections::SaveEditableModuleText(const String& value, String& errorText)
 {
 	return SaveEditableModuleText(ModuleTextKind::ObjectModule, value, errorText);
 }
 
-ModuleTextLocation __fastcall MetadataObjectWithSections::GetEditableModuleLocation()
+ModuleTextLocation  MetadataObjectWithSections::GetEditableModuleLocation()
 {
 	return GetEditableModuleLocation(ModuleTextKind::ObjectModule);
 }
 
-bool __fastcall MetadataObjectWithSections::HasEditableModuleText(ModuleTextKind kind)
+bool  MetadataObjectWithSections::HasEditableModuleText(ModuleTextKind kind)
 {
 	if (!SupportsMetadataObjectModuleKind(kind))
 		return false;
@@ -273,7 +273,7 @@ bool __fastcall MetadataObjectWithSections::HasEditableModuleText(ModuleTextKind
 	return !document.text.IsEmpty() || document.location.editable;
 }
 
-String __fastcall MetadataObjectWithSections::GetEditableModuleText(ModuleTextKind kind)
+String  MetadataObjectWithSections::GetEditableModuleText(ModuleTextKind kind)
 {
 	if (!SupportsMetadataObjectModuleKind(kind))
 		return L"";
@@ -282,7 +282,7 @@ String __fastcall MetadataObjectWithSections::GetEditableModuleText(ModuleTextKi
 	return GetModuleDocument(kind).text;
 }
 
-void __fastcall MetadataObjectWithSections::SetEditableModuleText(ModuleTextKind kind, const String& value)
+void  MetadataObjectWithSections::SetEditableModuleText(ModuleTextKind kind, const String& value)
 {
 	if (!SupportsMetadataObjectModuleKind(kind))
 		return;
@@ -294,7 +294,7 @@ void __fastcall MetadataObjectWithSections::SetEditableModuleText(ModuleTextKind
 	document.loaded = true;
 }
 
-bool __fastcall MetadataObjectWithSections::SaveEditableModuleText(ModuleTextKind kind, const String& value, String& errorText)
+bool  MetadataObjectWithSections::SaveEditableModuleText(ModuleTextKind kind, const String& value, String& errorText)
 {
 	if (!SupportsMetadataObjectModuleKind(kind))
 	{
@@ -306,7 +306,7 @@ bool __fastcall MetadataObjectWithSections::SaveEditableModuleText(ModuleTextKin
 	return ModuleTextStorage::SaveDocument(GetModuleDocument(kind), value, errorText);
 }
 
-ModuleTextLocation __fastcall MetadataObjectWithSections::GetEditableModuleLocation(ModuleTextKind kind)
+ModuleTextLocation  MetadataObjectWithSections::GetEditableModuleLocation(ModuleTextKind kind)
 {
 	if (!SupportsMetadataObjectModuleKind(kind))
 		return ModuleTextLocation();

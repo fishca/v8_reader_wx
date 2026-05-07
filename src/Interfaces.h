@@ -19,14 +19,14 @@ private:
     // interfaceName хранится в унаследованном поле name из BaseMetadataObject
 
 public:
-    __fastcall TInterfaces();
-    __fastcall TInterfaces(v8catalog* _parent, const String& _guid);
-    __fastcall TInterfaces(v8catalog* _parent, const String& _guid, const String& _name);
-    virtual __fastcall ~TInterfaces();
+     TInterfaces();
+     TInterfaces(v8catalog* _parent, const String& _guid);
+     TInterfaces(v8catalog* _parent, const String& _guid, const String& _name);
+    virtual  ~TInterfaces();
 
     // Методы для получения имени интерфейса
-    String __fastcall GetInterfaceName();
-    void __fastcall SetInterfaceName(String _name);
+    String  GetInterfaceName();
+    void  SetInterfaceName(String _name);
 
     // Реализация виртуальных методов BaseMetadataObject
     std::vector<std::unique_ptr<TRequisite>>& getAttributes() override;
@@ -35,7 +35,7 @@ public:
     std::vector<std::unique_ptr<TTabular>>& getTabularSections() override;
     std::vector<std::unique_ptr<TForm1C>>& getForms() override;
 
-    void __fastcall initializeFromTree() override;
+    void  initializeFromTree() override;
 
 private:
     // Внутренние хранилища для совместимости с интерфейсом

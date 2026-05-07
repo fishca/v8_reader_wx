@@ -38,14 +38,14 @@ protected:
 	ModuleTextDocument managerModuleDocument;
 
     void initializeFromTreeWithPaths(const MetadataTreePaths& paths);
-	void __fastcall RefreshModuleDocument(ModuleTextKind kind);
-	ModuleTextDocument& __fastcall GetModuleDocument(ModuleTextKind kind);
+	void  RefreshModuleDocument(ModuleTextKind kind);
+	ModuleTextDocument&  GetModuleDocument(ModuleTextKind kind);
 
 public:
-    __fastcall MetadataObjectWithSections();
-    __fastcall MetadataObjectWithSections(v8catalog* _parent, const String& _guid);
-    __fastcall MetadataObjectWithSections(v8catalog* _parent, const String& _guid, const String& _name);
-    virtual __fastcall ~MetadataObjectWithSections();
+     MetadataObjectWithSections();
+     MetadataObjectWithSections(v8catalog* _parent, const String& _guid);
+     MetadataObjectWithSections(v8catalog* _parent, const String& _guid, const String& _name);
+    virtual  ~MetadataObjectWithSections();
 
     std::vector<std::unique_ptr<TRequisite>>& getAttributes() override { return attributes; }
     std::vector<std::unique_ptr<TComand>>& getCommands() override { return comands; }
@@ -53,16 +53,16 @@ public:
     std::vector<std::unique_ptr<TTabular>>& getTabularSections() override { return tabulars; }
     std::vector<std::unique_ptr<TForm1C>>& getForms() override { return forms; }
 
-	bool __fastcall HasEditableModuleText() override;
-	String __fastcall GetEditableModuleText() override;
-	void __fastcall SetEditableModuleText(const String& value) override;
-	bool __fastcall SaveEditableModuleText(const String& value, String& errorText) override;
-	ModuleTextLocation __fastcall GetEditableModuleLocation() override;
-	bool __fastcall HasEditableModuleText(ModuleTextKind kind) override;
-	String __fastcall GetEditableModuleText(ModuleTextKind kind) override;
-	void __fastcall SetEditableModuleText(ModuleTextKind kind, const String& value) override;
-	bool __fastcall SaveEditableModuleText(ModuleTextKind kind, const String& value, String& errorText) override;
-	ModuleTextLocation __fastcall GetEditableModuleLocation(ModuleTextKind kind) override;
+	bool  HasEditableModuleText() override;
+	String  GetEditableModuleText() override;
+	void  SetEditableModuleText(const String& value) override;
+	bool  SaveEditableModuleText(const String& value, String& errorText) override;
+	ModuleTextLocation  GetEditableModuleLocation() override;
+	bool  HasEditableModuleText(ModuleTextKind kind) override;
+	String  GetEditableModuleText(ModuleTextKind kind) override;
+	void  SetEditableModuleText(ModuleTextKind kind, const String& value) override;
+	bool  SaveEditableModuleText(ModuleTextKind kind, const String& value, String& errorText) override;
+	ModuleTextLocation  GetEditableModuleLocation(ModuleTextKind kind) override;
 };
 
 //---------------------------------------------------------------------------

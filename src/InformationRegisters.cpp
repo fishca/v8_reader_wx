@@ -25,30 +25,30 @@ static InfoRegisterTreePaths GetInformationRegistersPaths()
 	return paths;
 }
 
-__fastcall TInformationRegisters::TInformationRegisters()
+ TInformationRegisters::TInformationRegisters()
 	: MetadataObjectInformationRegister()
 {
 }
 
-__fastcall TInformationRegisters::TInformationRegisters(v8catalog *_parent, const String& _guid)
+ TInformationRegisters::TInformationRegisters(v8catalog *_parent, const String& _guid)
 	: MetadataObjectInformationRegister(_parent, _guid)
 {
 	initializeFromTree();
 	root_data.reset();
 }
 
-__fastcall TInformationRegisters::TInformationRegisters(v8catalog *_parent, const String& _guid, const String& _name)
+ TInformationRegisters::TInformationRegisters(v8catalog *_parent, const String& _guid, const String& _name)
 	: MetadataObjectInformationRegister(_parent, _guid, _name)
 {
 	initializeFromTree();
 	root_data.reset();
 }
 
-__fastcall TInformationRegisters::~TInformationRegisters()
+ TInformationRegisters::~TInformationRegisters()
 {
 }
 
-void __fastcall TInformationRegisters::initializeFromTree()
+void  TInformationRegisters::initializeFromTree()
 {
 	MetadataObjectInformationRegister::initializeFromTreeWithPaths(GetInformationRegistersPaths());
 }

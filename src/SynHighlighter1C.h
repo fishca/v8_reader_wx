@@ -41,41 +41,41 @@ private:
 	TStringList* FEnglishKeywords;
 	TStringList* FAnnotations;
 
-	bool __fastcall IsIdentifierChar(WideChar ch) const;
-	bool __fastcall IsKeywordToken(const String& token) const;
-	bool __fastcall IsAnnotationToken(const String& token) const;
-	void __fastcall LoadRussianKeywords();
-	void __fastcall LoadEnglishKeywordPlaceholders();
-	void __fastcall LoadAnnotations();
-	void __fastcall NullProc();
-	void __fastcall SpaceProc();
-	void __fastcall CommentProc();
-	void __fastcall StringProc();
-	void __fastcall NumberProc();
-	void __fastcall DirectiveProc();
-	void __fastcall AnnotationProc();
-	void __fastcall IdentifierProc();
-	void __fastcall SymbolProc();
+	bool  IsIdentifierChar(WideChar ch) const;
+	bool  IsKeywordToken(const String& token) const;
+	bool  IsAnnotationToken(const String& token) const;
+	void  LoadRussianKeywords();
+	void  LoadEnglishKeywordPlaceholders();
+	void  LoadAnnotations();
+	void  NullProc();
+	void  SpaceProc();
+	void  CommentProc();
+	void  StringProc();
+	void  NumberProc();
+	void  DirectiveProc();
+	void  AnnotationProc();
+	void  IdentifierProc();
+	void  SymbolProc();
 
 protected:
-	virtual TSynHighlighterAttributes* __fastcall GetDefaultAttribute(int Index);
-	virtual String __fastcall GetSampleSource();
+	virtual TSynHighlighterAttributes*  GetDefaultAttribute(int Index);
+	virtual String  GetSampleSource();
 
 public:
-	__fastcall virtual TSyn1CSyn(TComponent* AOwner);
-	__fastcall virtual ~TSyn1CSyn();
-	__classmethod virtual String __fastcall GetLanguageName();
-	__classmethod virtual String __fastcall GetFriendlyLanguageName();
-	virtual bool __fastcall GetEol();
-	virtual String __fastcall GetToken();
-	virtual TSynHighlighterAttributes* __fastcall GetTokenAttribute();
-	virtual int __fastcall GetTokenKind();
-	virtual int __fastcall GetTokenPos();
-	virtual bool __fastcall IsIdentChar(WideChar AChar);
-	virtual bool __fastcall IsKeyword(const String AKeyword);
-	virtual void __fastcall Next();
-	virtual void __fastcall SetLine(const String Value, int LineNumber);
-	virtual String __fastcall GetKeyWords(int TokenKind);
+	 virtual TSyn1CSyn(TComponent* AOwner);
+	 virtual ~TSyn1CSyn();
+	__classmethod virtual String  GetLanguageName();
+	__classmethod virtual String  GetFriendlyLanguageName();
+	virtual bool  GetEol();
+	virtual String  GetToken();
+	virtual TSynHighlighterAttributes*  GetTokenAttribute();
+	virtual int  GetTokenKind();
+	virtual int  GetTokenPos();
+	virtual bool  IsIdentChar(WideChar AChar);
+	virtual bool  IsKeyword(const String AKeyword);
+	virtual void  Next();
+	virtual void  SetLine(const String Value, int LineNumber);
+	virtual String  GetKeyWords(int TokenKind);
 
 	__property TSynHighlighterAttributes* CommentAttri = {read=FCommentAttri};
 	__property TSynHighlighterAttributes* DirectiveAttri = {read=FDirectiveAttri};

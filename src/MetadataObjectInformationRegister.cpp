@@ -30,22 +30,22 @@ namespace
     }
 }
 
-__fastcall MetadataObjectInformationRegister::MetadataObjectInformationRegister()
+ MetadataObjectInformationRegister::MetadataObjectInformationRegister()
     : BaseMetadataObject()
 {
 }
 
-__fastcall MetadataObjectInformationRegister::MetadataObjectInformationRegister(v8catalog* _parent, const String& _guid)
+ MetadataObjectInformationRegister::MetadataObjectInformationRegister(v8catalog* _parent, const String& _guid)
     : BaseMetadataObject(_parent, _guid)
 {
 }
 
-__fastcall MetadataObjectInformationRegister::MetadataObjectInformationRegister(v8catalog* _parent, const String& _guid, const String& _name)
+ MetadataObjectInformationRegister::MetadataObjectInformationRegister(v8catalog* _parent, const String& _guid, const String& _name)
     : BaseMetadataObject(_parent, _guid, _name)
 {
 }
 
-__fastcall MetadataObjectInformationRegister::~MetadataObjectInformationRegister()
+ MetadataObjectInformationRegister::~MetadataObjectInformationRegister()
 {
 }
 

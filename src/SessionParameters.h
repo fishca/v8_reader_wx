@@ -19,14 +19,14 @@ private:
     // parameterName хранится в унаследованном поле name из BaseMetadataObject
 
 public:
-    __fastcall TSessionParameters();
-    __fastcall TSessionParameters(v8catalog* _parent, const String& _guid);
-    __fastcall TSessionParameters(v8catalog* _parent, const String& _guid, const String& _name);
-    virtual __fastcall ~TSessionParameters();
+     TSessionParameters();
+     TSessionParameters(v8catalog* _parent, const String& _guid);
+     TSessionParameters(v8catalog* _parent, const String& _guid, const String& _name);
+    virtual  ~TSessionParameters();
 
     // Методы для получения имени параметра сеанса
-    String __fastcall GetParameterName();
-    void __fastcall SetParameterName(String _name);
+    String  GetParameterName();
+    void  SetParameterName(String _name);
 
     // Реализация виртуальных методов BaseMetadataObject
     std::vector<std::unique_ptr<TRequisite>>& getAttributes() override;
@@ -35,7 +35,7 @@ public:
     std::vector<std::unique_ptr<TTabular>>& getTabularSections() override;
     std::vector<std::unique_ptr<TForm1C>>& getForms() override;
 
-    void __fastcall initializeFromTree() override;
+    void  initializeFromTree() override;
 
 private:
     // Внутренние хранилища для совместимости с интерфейсом

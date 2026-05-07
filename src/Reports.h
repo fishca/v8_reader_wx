@@ -10,12 +10,12 @@
 class TReports : public MetadataObjectWithSections
 {
 public:
-	__fastcall TReports();
-	__fastcall TReports(v8catalog *_parent, const String& _guid);
-	__fastcall TReports(v8catalog *_parent, const String& _guid, const String& _name);
-	__fastcall ~TReports();
+	 TReports();
+	 TReports(v8catalog *_parent, const String& _guid);
+	 TReports(v8catalog *_parent, const String& _guid, const String& _name);
+	 ~TReports();
 
-	void __fastcall initializeFromTree() override;
+	void  initializeFromTree() override;
 };
 
 #endif

@@ -7,34 +7,34 @@
 #pragma package(smart_init)
 
 
-__fastcall TCommonPictures::TCommonPictures() : BaseMetadataObject()
+ TCommonPictures::TCommonPictures() : BaseMetadataObject()
 {
     name = "";
     root_data.reset();
 }
 
-__fastcall TCommonPictures::TCommonPictures(v8catalog* _parent, const String& _guid) : BaseMetadataObject(_parent, _guid)
+ TCommonPictures::TCommonPictures(v8catalog* _parent, const String& _guid) : BaseMetadataObject(_parent, _guid)
 {
     name = "";
     root_data.reset();
 }
 
-__fastcall TCommonPictures::TCommonPictures(v8catalog* _parent, const String& _guid, const String& _name) : BaseMetadataObject(_parent, _guid, _name)
+ TCommonPictures::TCommonPictures(v8catalog* _parent, const String& _guid, const String& _name) : BaseMetadataObject(_parent, _guid, _name)
 {
     name = _name;
     root_data.reset();
 }
 
-__fastcall TCommonPictures::~TCommonPictures()
+ TCommonPictures::~TCommonPictures()
 {
 }
 
-String __fastcall TCommonPictures::GetPictureName()
+String  TCommonPictures::GetPictureName()
 {
     return name;
 }
 
-void __fastcall TCommonPictures::SetPictureName(String _name)
+void  TCommonPictures::SetPictureName(String _name)
 {
     name = _name;
 }
@@ -64,7 +64,7 @@ std::vector<std::unique_ptr<TForm1C>>& TCommonPictures::getForms()
     return forms;
 }
 
-void __fastcall TCommonPictures::initializeFromTree()
+void  TCommonPictures::initializeFromTree()
 {
     // Инициализация общей картинки из дерева метаданных
     // Имя общей картинки уже установлено в конструкторе

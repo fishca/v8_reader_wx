@@ -23,30 +23,30 @@ static MetadataTreePaths GetJournalsPaths()
 	return paths;
 }
 
-__fastcall TJournals::TJournals()
+ TJournals::TJournals()
 	: MetadataObjectWithSections()
 {
 }
 
-__fastcall TJournals::TJournals(v8catalog *_parent, const String& _guid)
+ TJournals::TJournals(v8catalog *_parent, const String& _guid)
 	: MetadataObjectWithSections(_parent, _guid)
 {
 	initializeFromTree();
 	root_data.reset();
 }
 
-__fastcall TJournals::TJournals(v8catalog *_parent, const String& _guid, const String& _name)
+ TJournals::TJournals(v8catalog *_parent, const String& _guid, const String& _name)
 	: MetadataObjectWithSections(_parent, _guid, _name)
 {
 	initializeFromTree();
 	root_data.reset();
 }
 
-__fastcall TJournals::~TJournals()
+ TJournals::~TJournals()
 {
 }
 
-void __fastcall TJournals::initializeFromTree()
+void  TJournals::initializeFromTree()
 {
 	MetadataObjectWithSections::initializeFromTreeWithPaths(GetJournalsPaths());
 }

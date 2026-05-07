@@ -18,14 +18,14 @@ private:
     // data хранится в унаследованном поле root_data из BaseMetadataObject
 
 public:
-    __fastcall TWebServices();
-    __fastcall TWebServices(v8catalog* _parent, const String& _guid);
-    __fastcall TWebServices(v8catalog* _parent, const String& _guid, const String& _name);
-    virtual __fastcall ~TWebServices();
+     TWebServices();
+     TWebServices(v8catalog* _parent, const String& _guid);
+     TWebServices(v8catalog* _parent, const String& _guid, const String& _name);
+    virtual  ~TWebServices();
 
     // Методы для получения имени веб-сервиса
-    String __fastcall GetWebServiceName();
-    void __fastcall SetWebServiceName(String _name);
+    String  GetWebServiceName();
+    void  SetWebServiceName(String _name);
 
     // Реализация виртуальных методов BaseMetadataObject
     std::vector<std::unique_ptr<TRequisite>>& getAttributes() override;
@@ -34,7 +34,7 @@ public:
     std::vector<std::unique_ptr<TTabular>>& getTabularSections() override;
     std::vector<std::unique_ptr<TForm1C>>& getForms() override;
 
-    void __fastcall initializeFromTree() override;
+    void  initializeFromTree() override;
 
 private:
     // Внутренние хранилища для совместимости с интерфейсом

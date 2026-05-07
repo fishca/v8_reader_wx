@@ -7,7 +7,7 @@
 
 //---------------------------------------------------------------------------
 
-__fastcall TSyn1CSyn::TSyn1CSyn(TComponent* AOwner) : TSynCustomHighlighter(AOwner)
+ TSyn1CSyn::TSyn1CSyn(TComponent* AOwner) : TSynCustomHighlighter(AOwner)
 {
 	FCaseSensitive = false;
 	FKeywords = new TStringList();
@@ -58,24 +58,24 @@ __fastcall TSyn1CSyn::TSyn1CSyn(TComponent* AOwner) : TSynCustomHighlighter(AOwn
 	SetAttributesOnChange(DefHighlightChange);
 }
 
-__fastcall TSyn1CSyn::~TSyn1CSyn()
+ TSyn1CSyn::~TSyn1CSyn()
 {
 	delete FKeywords;
 	delete FEnglishKeywords;
 	delete FAnnotations;
 }
 
-String __fastcall TSyn1CSyn::GetLanguageName()
+String  TSyn1CSyn::GetLanguageName()
 {
 	return L"1C";
 }
 
-String __fastcall TSyn1CSyn::GetFriendlyLanguageName()
+String  TSyn1CSyn::GetFriendlyLanguageName()
 {
 	return L"1C:Enterprise";
 }
 
-void __fastcall TSyn1CSyn::LoadRussianKeywords()
+void  TSyn1CSyn::LoadRussianKeywords()
 {
 	const wchar_t* keywords[] = {
 		L"\u0430", L"\u0432", L"\u0432\u043E\u0437\u0432\u0440\u0430\u0442",
@@ -101,12 +101,12 @@ void __fastcall TSyn1CSyn::LoadRussianKeywords()
 		FKeywords->Add(keywords[i]);
 }
 
-void __fastcall TSyn1CSyn::LoadEnglishKeywordPlaceholders()
+void  TSyn1CSyn::LoadEnglishKeywordPlaceholders()
 {
 	// English 1C keywords can be enabled later by filling this list.
 }
 
-void __fastcall TSyn1CSyn::LoadAnnotations()
+void  TSyn1CSyn::LoadAnnotations()
 {
 	const wchar_t* annotations[] = {
 		L"&\u043D\u0430\u043A\u043B\u0438\u0435\u043D\u0442\u0435",
@@ -120,7 +120,7 @@ void __fastcall TSyn1CSyn::LoadAnnotations()
 		FAnnotations->Add(annotations[i]);
 }
 
-bool __fastcall TSyn1CSyn::IsIdentifierChar(WideChar ch) const
+bool  TSyn1CSyn::IsIdentifierChar(WideChar ch) const
 {
 	return (ch == L'_')
 		|| (ch >= L'0' && ch <= L'9')
@@ -132,27 +132,27 @@ bool __fastcall TSyn1CSyn::IsIdentifierChar(WideChar ch) const
 		|| (ch == L'\u0401');
 }
 
-bool __fastcall TSyn1CSyn::IsKeywordToken(const String& token) const
+bool  TSyn1CSyn::IsKeywordToken(const String& token) const
 {
 	return FKeywords->IndexOf(token) >= 0 || FEnglishKeywords->IndexOf(token) >= 0;
 }
 
-bool __fastcall TSyn1CSyn::IsAnnotationToken(const String& token) const
+bool  TSyn1CSyn::IsAnnotationToken(const String& token) const
 {
 	return FAnnotations->IndexOf(token) >= 0;
 }
 
-bool __fastcall TSyn1CSyn::IsIdentChar(WideChar AChar)
+bool  TSyn1CSyn::IsIdentChar(WideChar AChar)
 {
 	return IsIdentifierChar(AChar);
 }
 
-bool __fastcall TSyn1CSyn::IsKeyword(const String AKeyword)
+bool  TSyn1CSyn::IsKeyword(const String AKeyword)
 {
 	return IsKeywordToken(AKeyword.LowerCase());
 }
 
-String __fastcall TSyn1CSyn::GetKeyWords(int TokenKind)
+String  TSyn1CSyn::GetKeyWords(int TokenKind)
 {
 	if (TokenKind == tk1CKeyword)
 		return FKeywords->CommaText;
@@ -162,7 +162,7 @@ String __fastcall TSyn1CSyn::GetKeyWords(int TokenKind)
 	return L"";
 }
 
-String __fastcall TSyn1CSyn::GetSampleSource()
+String  TSyn1CSyn::GetSampleSource()
 {
 	return L"&\u041D\u0430\u0421\u0435\u0440\u0432\u0435\u0440\u0435\n"
 		L"\u041F\u0440\u043E\u0446\u0435\u0434\u0443\u0440\u0430 \u041E\u0431\u043D\u043E\u0432\u0438\u0442\u044C\u0414\u0430\u043D\u043D\u044B\u0435() \u042D\u043A\u0441\u043F\u043E\u0440\u0442\n"
@@ -173,7 +173,7 @@ String __fastcall TSyn1CSyn::GetSampleSource()
 		L"\u041A\u043E\u043D\u0435\u0446\u041F\u0440\u043E\u0446\u0435\u0434\u0443\u0440\u044B";
 }
 
-TSynHighlighterAttributes* __fastcall TSyn1CSyn::GetDefaultAttribute(int Index)
+TSynHighlighterAttributes*  TSyn1CSyn::GetDefaultAttribute(int Index)
 {
 	switch (Index)
 	{
@@ -187,12 +187,12 @@ TSynHighlighterAttributes* __fastcall TSyn1CSyn::GetDefaultAttribute(int Index)
 	}
 }
 
-bool __fastcall TSyn1CSyn::GetEol()
+bool  TSyn1CSyn::GetEol()
 {
 	return Run == FLineLen + 1;
 }
 
-String __fastcall TSyn1CSyn::GetToken()
+String  TSyn1CSyn::GetToken()
 {
 	int len = Run - FTokenPos;
 	if (len <= 0 || FTokenPos >= FLineLen)
@@ -204,7 +204,7 @@ String __fastcall TSyn1CSyn::GetToken()
 	return FLineStr.SubString(FTokenPos + 1, len);
 }
 
-TSynHighlighterAttributes* __fastcall TSyn1CSyn::GetTokenAttribute()
+TSynHighlighterAttributes*  TSyn1CSyn::GetTokenAttribute()
 {
 	switch (FTokenID)
 	{
@@ -221,17 +221,17 @@ TSynHighlighterAttributes* __fastcall TSyn1CSyn::GetTokenAttribute()
 	}
 }
 
-int __fastcall TSyn1CSyn::GetTokenKind()
+int  TSyn1CSyn::GetTokenKind()
 {
 	return FTokenID;
 }
 
-int __fastcall TSyn1CSyn::GetTokenPos()
+int  TSyn1CSyn::GetTokenPos()
 {
 	return FTokenPos;
 }
 
-void __fastcall TSyn1CSyn::SetLine(const String Value, int LineNumber)
+void  TSyn1CSyn::SetLine(const String Value, int LineNumber)
 {
 	FLineStr = Value;
 	FCasedLineStr = Value.LowerCase();
@@ -245,26 +245,26 @@ void __fastcall TSyn1CSyn::SetLine(const String Value, int LineNumber)
 	FTokenID = tk1CNull;
 }
 
-void __fastcall TSyn1CSyn::NullProc()
+void  TSyn1CSyn::NullProc()
 {
 	FTokenID = tk1CNull;
 	++Run;
 }
 
-void __fastcall TSyn1CSyn::SpaceProc()
+void  TSyn1CSyn::SpaceProc()
 {
 	FTokenID = tk1CSpace;
 	while (Run < FLineLen && FLine[Run] <= L' ')
 		++Run;
 }
 
-void __fastcall TSyn1CSyn::CommentProc()
+void  TSyn1CSyn::CommentProc()
 {
 	FTokenID = tk1CComment;
 	Run = FLineLen;
 }
 
-void __fastcall TSyn1CSyn::StringProc()
+void  TSyn1CSyn::StringProc()
 {
 	FTokenID = tk1CString;
 	++Run;
@@ -284,7 +284,7 @@ void __fastcall TSyn1CSyn::StringProc()
 	}
 }
 
-void __fastcall TSyn1CSyn::NumberProc()
+void  TSyn1CSyn::NumberProc()
 {
 	FTokenID = tk1CNumber;
 	while (Run < FLineLen && FLine[Run] >= L'0' && FLine[Run] <= L'9')
@@ -297,7 +297,7 @@ void __fastcall TSyn1CSyn::NumberProc()
 	}
 }
 
-void __fastcall TSyn1CSyn::DirectiveProc()
+void  TSyn1CSyn::DirectiveProc()
 {
 	FTokenID = tk1CDirective;
 	++Run;
@@ -305,7 +305,7 @@ void __fastcall TSyn1CSyn::DirectiveProc()
 		++Run;
 }
 
-void __fastcall TSyn1CSyn::AnnotationProc()
+void  TSyn1CSyn::AnnotationProc()
 {
 	++Run;
 	while (Run < FLineLen && IsIdentifierChar(FCasedLine[Run]))
@@ -315,7 +315,7 @@ void __fastcall TSyn1CSyn::AnnotationProc()
 	FTokenID = IsAnnotationToken(token) ? tk1CAnnotation : tk1CSymbol;
 }
 
-void __fastcall TSyn1CSyn::IdentifierProc()
+void  TSyn1CSyn::IdentifierProc()
 {
 	while (Run < FLineLen && IsIdentifierChar(FCasedLine[Run]))
 		++Run;
@@ -324,13 +324,13 @@ void __fastcall TSyn1CSyn::IdentifierProc()
 	FTokenID = IsKeywordToken(token) ? tk1CKeyword : tk1CIdentifier;
 }
 
-void __fastcall TSyn1CSyn::SymbolProc()
+void  TSyn1CSyn::SymbolProc()
 {
 	FTokenID = tk1CSymbol;
 	++Run;
 }
 
-void __fastcall TSyn1CSyn::Next()
+void  TSyn1CSyn::Next()
 {
 	FTokenPos = Run;
 	if (Run >= FLineLen)

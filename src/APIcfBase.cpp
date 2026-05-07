@@ -356,7 +356,7 @@ int v8file::Read(ByteArr Buffer, int Start, int Length)
 
 ////---------------------------------------------------------------------------
 //// Потоконебезопасная функция!
-//TStream* __fastcall v8file::get_data()
+//TStream*  v8file::get_data()
 //{
 //	return data;
 //}
@@ -1350,7 +1350,7 @@ void v8catalog::initialize(int Offset)
 	leave_data       = false;
 }
 
-//void __fastcall v8catalog::initialize(int Offset = 0)
+//void  v8catalog::initialize(int Offset = 0)
 //{
 //	is_destructed = false;
 //	catalog_header _ch;
@@ -2010,7 +2010,7 @@ void v8catalog::ClearIs8316()
     is_8316 = false;
 }
 
-//void __fastcall v8catalog::set_leave_data(bool ld)
+//void  v8catalog::set_leave_data(bool ld)
 //{
 //    leave_data = ld;
 //}

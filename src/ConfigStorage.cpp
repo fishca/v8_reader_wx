@@ -27,7 +27,7 @@ const int lsdynupdate = sdynupdate.Length();
 // Класс ConfigStorageDirectory
 
 //---------------------------------------------------------------------------
-__fastcall ConfigStorageDirectory::ConfigStorageDirectory(const String& _dir)
+ ConfigStorageDirectory::ConfigStorageDirectory(const String& _dir)
 {
 	fdir = _dir;
 
@@ -36,7 +36,7 @@ __fastcall ConfigStorageDirectory::ConfigStorageDirectory(const String& _dir)
 }
 
 //---------------------------------------------------------------------------
-ConfigFile* __fastcall ConfigStorageDirectory::readfile(const String& path)
+ConfigFile*  ConfigStorageDirectory::readfile(const String& path)
 {
 	ConfigFile* cf;
 	String filename;
@@ -68,7 +68,7 @@ ConfigFile* __fastcall ConfigStorageDirectory::readfile(const String& path)
 }
 
 //---------------------------------------------------------------------------
-bool __fastcall ConfigStorageDirectory::writefile(const String& path, TStream* str)
+bool  ConfigStorageDirectory::writefile(const String& path, TStream* str)
 {
 	String filename = fdir + TStringBuilder(path).Replace(L'/', L'\\')->ToString();
 	TFileStream* f = new TFileStream(filename, fmCreate);
@@ -79,13 +79,13 @@ bool __fastcall ConfigStorageDirectory::writefile(const String& path, TStream* s
 }
 
 //---------------------------------------------------------------------------
-String __fastcall ConfigStorageDirectory::presentation()
+String  ConfigStorageDirectory::presentation()
 {
 	return fdir.SubString(1, fdir.Length() - 1);
 }
 
 //---------------------------------------------------------------------------
-bool __fastcall ConfigStorageDirectory::fileexists(const String& path)
+bool  ConfigStorageDirectory::fileexists(const String& path)
 {
 	String filename;
 	filename = fdir + TStringBuilder(path).Replace(L'/', L'\\')->ToString();
@@ -98,20 +98,20 @@ bool __fastcall ConfigStorageDirectory::fileexists(const String& path)
 // Класс ConfigStorageCFFile
 
 //---------------------------------------------------------------------------
-__fastcall ConfigStorageCFFile::ConfigStorageCFFile(const String& fname)
+ ConfigStorageCFFile::ConfigStorageCFFile(const String& fname)
 {
 	filename = fname;
 	cat = new v8catalog(filename);
 }
 
 //---------------------------------------------------------------------------
-__fastcall ConfigStorageCFFile::~ConfigStorageCFFile()
+ ConfigStorageCFFile::~ConfigStorageCFFile()
 {
 	delete cat;
 }
 
 //---------------------------------------------------------------------------
-ConfigFile* __fastcall ConfigStorageCFFile::readfile(const String& path)
+ConfigFile*  ConfigStorageCFFile::readfile(const String& path)
 {
 	v8catalog* c;
 	v8file* f;
@@ -155,7 +155,7 @@ ConfigFile* __fastcall ConfigStorageCFFile::readfile(const String& path)
 }
 
 //---------------------------------------------------------------------------
-bool __fastcall ConfigStorageCFFile::writefile(const String& path, TStream* str)
+bool  ConfigStorageCFFile::writefile(const String& path, TStream* str)
 {
 	v8catalog* c;
 	v8file* f;
@@ -176,13 +176,13 @@ bool __fastcall ConfigStorageCFFile::writefile(const String& path, TStream* str)
 }
 
 //---------------------------------------------------------------------------
-String __fastcall ConfigStorageCFFile::presentation()
+String  ConfigStorageCFFile::presentation()
 {
 	return filename;
 }
 
 //---------------------------------------------------------------------------
-void __fastcall ConfigStorageCFFile::close(ConfigFile* cf)
+void  ConfigStorageCFFile::close(ConfigFile* cf)
 {
 	v8file* f;
 
@@ -192,7 +192,7 @@ void __fastcall ConfigStorageCFFile::close(ConfigFile* cf)
 }
 
 //---------------------------------------------------------------------------
-bool __fastcall ConfigStorageCFFile::fileexists(const String& path)
+bool  ConfigStorageCFFile::fileexists(const String& path)
 {
 	// По сути, проверяется существование только каталога (файла верхнего уровня)
 	// Это неправильно для формата 8.0 с файлом каталогом metadata.
@@ -221,7 +221,7 @@ bool __fastcall ConfigStorageCFFile::fileexists(const String& path)
 // Класс container_file
 
 //---------------------------------------------------------------------------
-__fastcall container_file::container_file(table_file* _f, const String& _name)
+ container_file::container_file(table_file* _f, const String& _name)
 {
 	unsigned int i;
 
@@ -235,7 +235,7 @@ __fastcall container_file::container_file(table_file* _f, const String& _name)
 }
 
 //---------------------------------------------------------------------------
-__fastcall container_file::~container_file()
+ container_file::~container_file()
 {
 	close();
 }
@@ -434,7 +434,7 @@ struct ConfigStorageTable_addin
 // Класс ConfigStorageTable
 
 //---------------------------------------------------------------------------
-__fastcall ConfigStorageTable::~ConfigStorageTable()
+ ConfigStorageTable::~ConfigStorageTable()
 {
 	std::map<String,container_file*>::iterator pfiles;
 
@@ -447,7 +447,7 @@ __fastcall ConfigStorageTable::~ConfigStorageTable()
 }
 
 //---------------------------------------------------------------------------
-ConfigFile* __fastcall ConfigStorageTable::readfile(const String& path)
+ConfigFile*  ConfigStorageTable::readfile(const String& path)
 {
 	container_file* tf;
 	std::map<String,container_file*>::iterator pfiles;
@@ -522,13 +522,13 @@ ConfigFile* __fastcall ConfigStorageTable::readfile(const String& path)
 }
 
 //---------------------------------------------------------------------------
-bool __fastcall ConfigStorageTable::writefile(const String& path, TStream* str)
+bool  ConfigStorageTable::writefile(const String& path, TStream* str)
 {
 	return false; // Запись в таблицы пока не поддерживается
 }
 
 //---------------------------------------------------------------------------
-void __fastcall ConfigStorageTable::close(ConfigFile* cf)
+void  ConfigStorageTable::close(ConfigFile* cf)
 {
 	ConfigStorageTable_addin* cfa;
 
@@ -546,7 +546,7 @@ void __fastcall ConfigStorageTable::close(ConfigFile* cf)
 }
 
 //---------------------------------------------------------------------------
-bool __fastcall ConfigStorageTable::save_config(String _filename)
+bool  ConfigStorageTable::save_config(String _filename)
 {
 	v8catalog* c;
 	v8file* f;
@@ -589,7 +589,7 @@ bool __fastcall ConfigStorageTable::save_config(String _filename)
 }
 
 //---------------------------------------------------------------------------
-bool __fastcall ConfigStorageTable::fileexists(const String& path)
+bool  ConfigStorageTable::fileexists(const String& path)
 {
 	// По сути, проверяется существование только каталога (файла записи верхнего уровня)
 	// Это неправильно для формата 8.0 с файлом каталогом metadata.
@@ -616,7 +616,7 @@ bool __fastcall ConfigStorageTable::fileexists(const String& path)
 // Класс ConfigStorageTableConfig
 
 //---------------------------------------------------------------------------
-__fastcall ConfigStorageTableConfig::ConfigStorageTableConfig(TableFiles* tabf, T_1CD* _base) : ConfigStorageTable(_base)
+ ConfigStorageTableConfig::ConfigStorageTableConfig(TableFiles* tabf, T_1CD* _base) : ConfigStorageTable(_base)
 {
 	int m;
 	String s;
@@ -774,7 +774,7 @@ __fastcall ConfigStorageTableConfig::ConfigStorageTableConfig(TableFiles* tabf, 
 }
 
 //---------------------------------------------------------------------------
-String __fastcall ConfigStorageTableConfig::presentation()
+String  ConfigStorageTableConfig::presentation()
 {
 	return present;
 }
@@ -783,7 +783,7 @@ String __fastcall ConfigStorageTableConfig::presentation()
 // Класс ConfigStorageTableConfigSave
 
 //---------------------------------------------------------------------------
-__fastcall ConfigStorageTableConfigSave::ConfigStorageTableConfigSave(TableFiles* tabc, TableFiles* tabcs, T_1CD* _base) : ConfigStorageTable(_base)
+ ConfigStorageTableConfigSave::ConfigStorageTableConfigSave(TableFiles* tabc, TableFiles* tabcs, T_1CD* _base) : ConfigStorageTable(_base)
 {
 	int m;
 	String s;
@@ -1020,7 +1020,7 @@ __fastcall ConfigStorageTableConfigSave::ConfigStorageTableConfigSave(TableFiles
 }
 
 //---------------------------------------------------------------------------
-String __fastcall ConfigStorageTableConfigSave::presentation()
+String  ConfigStorageTableConfigSave::presentation()
 {
 	return present;
 }
@@ -1029,7 +1029,7 @@ String __fastcall ConfigStorageTableConfigSave::presentation()
 // Класс ConfigStorageTableConfigCas
 
 //---------------------------------------------------------------------------
-__fastcall ConfigStorageTableConfigCas::ConfigStorageTableConfigCas(TableFiles* tabc, const String& configver, T_1CD* _base) : ConfigStorageTable(_base)
+ ConfigStorageTableConfigCas::ConfigStorageTableConfigCas(TableFiles* tabc, const String& configver, T_1CD* _base) : ConfigStorageTable(_base)
 {
 	int m;
 	String s, name, hashname;
@@ -1169,7 +1169,7 @@ __fastcall ConfigStorageTableConfigCas::ConfigStorageTableConfigCas(TableFiles* 
 }
 
 //---------------------------------------------------------------------------
-String __fastcall ConfigStorageTableConfigCas::presentation()
+String  ConfigStorageTableConfigCas::presentation()
 {
 	return present;
 }
@@ -1178,7 +1178,7 @@ String __fastcall ConfigStorageTableConfigCas::presentation()
 // Класс ConfigStorageTableConfigCasSave
 
 //---------------------------------------------------------------------------
-__fastcall ConfigStorageTableConfigCasSave::ConfigStorageTableConfigCasSave(TableFiles* tabc, TableFiles* tabcs, const TGUID& uid, const String& configver, T_1CD* _base) : ConfigStorageTable(_base)
+ ConfigStorageTableConfigCasSave::ConfigStorageTableConfigCasSave(TableFiles* tabc, TableFiles* tabcs, const TGUID& uid, const String& configver, T_1CD* _base) : ConfigStorageTable(_base)
 {
 	int m;
 	String s, name, hashname;
@@ -1354,7 +1354,7 @@ __fastcall ConfigStorageTableConfigCasSave::ConfigStorageTableConfigCasSave(Tabl
 }
 
 //---------------------------------------------------------------------------
-String __fastcall ConfigStorageTableConfigCasSave::presentation()
+String  ConfigStorageTableConfigCasSave::presentation()
 {
 	return present;
 }

@@ -19,14 +19,14 @@ private:
     // templateName хранится в унаследованном поле name из BaseMetadataObject
 
 public:
-    __fastcall TCommonTemplates();
-    __fastcall TCommonTemplates(v8catalog* _parent, const String& _guid);
-    __fastcall TCommonTemplates(v8catalog* _parent, const String& _guid, const String& _name);
-    virtual __fastcall ~TCommonTemplates();
+     TCommonTemplates();
+     TCommonTemplates(v8catalog* _parent, const String& _guid);
+     TCommonTemplates(v8catalog* _parent, const String& _guid, const String& _name);
+    virtual  ~TCommonTemplates();
 
     // Методы для получения имени общего макета
-    String __fastcall GetTemplateName();
-    void __fastcall SetTemplateName(String _name);
+    String  GetTemplateName();
+    void  SetTemplateName(String _name);
 
     // Реализация виртуальных методов BaseMetadataObject
     std::vector<std::unique_ptr<TRequisite>>& getAttributes() override;
@@ -35,7 +35,7 @@ public:
     std::vector<std::unique_ptr<TTabular>>& getTabularSections() override;
     std::vector<std::unique_ptr<TForm1C>>& getForms() override;
 
-    void __fastcall initializeFromTree() override;
+    void  initializeFromTree() override;
 
 private:
     // Внутренние хранилища для совместимости с интерфейсом

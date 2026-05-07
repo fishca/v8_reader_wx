@@ -19,16 +19,16 @@ private:
     String exchangePlanName;  // Имя плана обмена
 
 public:
-    __fastcall TExchangePlans();
-    __fastcall TExchangePlans(v8catalog* _parent, const String& _guid);
-    __fastcall TExchangePlans(v8catalog* _parent, const String& _guid, const String& _name);
-    virtual __fastcall ~TExchangePlans();
+     TExchangePlans();
+     TExchangePlans(v8catalog* _parent, const String& _guid);
+     TExchangePlans(v8catalog* _parent, const String& _guid, const String& _name);
+    virtual  ~TExchangePlans();
 
     // Методы для получения имени плана обмена
-    String __fastcall GetExchangePlanName();
-    void __fastcall SetExchangePlanName(String _name);
+    String  GetExchangePlanName();
+    void  SetExchangePlanName(String _name);
 
-    void __fastcall initializeFromTree() override;
+    void  initializeFromTree() override;
 };
 
 #endif

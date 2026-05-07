@@ -114,32 +114,32 @@ __published:	// IDE-managed Components
 	TAction *ActionSaveCF;
 	TAction *ActionSaveModule;
 	TMenuItem *N6;
-	void __fastcall btnOpenEditNameClick(TObject *Sender);
-	void __fastcall btnGOClick(TObject *Sender);
-	void __fastcall VirtualStringTreeValue1CInitNode(TBaseVirtualTree *Sender, PVirtualNode ParentNode,
+	void  btnOpenEditNameClick(TObject *Sender);
+	void  btnGOClick(TObject *Sender);
+	void  VirtualStringTreeValue1CInitNode(TBaseVirtualTree *Sender, PVirtualNode ParentNode,
 		  PVirtualNode Node, TVirtualNodeInitStates &InitialStates);
-	void __fastcall VirtualStringTreeValue1CGetText(TBaseVirtualTree *Sender, PVirtualNode Node,
+	void  VirtualStringTreeValue1CGetText(TBaseVirtualTree *Sender, PVirtualNode Node,
 		  TColumnIndex Column, TVSTTextType TextType, UnicodeString &CellText);
-	void __fastcall VirtualStringTreeValue1CFreeNode(TBaseVirtualTree *Sender, PVirtualNode Node);
-	void __fastcall VirtualStringTreeValue1CGetImageIndex(TBaseVirtualTree *Sender, PVirtualNode Node, TVTImageKind Kind, TColumnIndex Column,
+	void  VirtualStringTreeValue1CFreeNode(TBaseVirtualTree *Sender, PVirtualNode Node);
+	void  VirtualStringTreeValue1CGetImageIndex(TBaseVirtualTree *Sender, PVirtualNode Node, TVTImageKind Kind, TColumnIndex Column,
 		  bool &Ghosted, TImageIndex &ImageIndex);
-	void __fastcall Button1Click(TObject *Sender);
-	void __fastcall ActionFileOpenExecute(TObject *Sender);
-	void __fastcall ActionOpenCFExecute(TObject *Sender);
-	void __fastcall FormDestroy(TObject *Sender);
-	void __fastcall VirtualStringTreeValue1CClick(TObject *Sender);
-	void __fastcall VirtualStringTreeValue1CChange(TBaseVirtualTree *Sender, PVirtualNode Node);
-	void __fastcall VirtualStringTreeValue1CNodeClick(TBaseVirtualTree *Sender, const THitInfo &HitInfo);
-	void __fastcall VirtualStringTreeValue1CFocusChanged(TBaseVirtualTree *Sender, PVirtualNode Node,
+	void  Button1Click(TObject *Sender);
+	void  ActionFileOpenExecute(TObject *Sender);
+	void  ActionOpenCFExecute(TObject *Sender);
+	void  FormDestroy(TObject *Sender);
+	void  VirtualStringTreeValue1CClick(TObject *Sender);
+	void  VirtualStringTreeValue1CChange(TBaseVirtualTree *Sender, PVirtualNode Node);
+	void  VirtualStringTreeValue1CNodeClick(TBaseVirtualTree *Sender, const THitInfo &HitInfo);
+	void  VirtualStringTreeValue1CFocusChanged(TBaseVirtualTree *Sender, PVirtualNode Node,
 		  TColumnIndex Column);
-	void __fastcall ModuleMemoScanForFoldRanges(TObject *Sender, TSynFoldRanges *FoldRanges,
+	void  ModuleMemoScanForFoldRanges(TObject *Sender, TSynFoldRanges *FoldRanges,
 		  TStrings *LinesToScan, int FromLine, int ToLine);
-	void __fastcall ModuleSelectionTimerTimer(TObject *Sender);
-	void __fastcall N4Click(TObject *Sender);
-	void __fastcall ActionSaveCFExecute(TObject *Sender);
-	void __fastcall MemoObjectChange(TObject *Sender);
-	void __fastcall ActionSaveModuleExecute(TObject *Sender);
-	void __fastcall FormCloseQuery(TObject *Sender, bool &CanClose);
+	void  ModuleSelectionTimerTimer(TObject *Sender);
+	void  N4Click(TObject *Sender);
+	void  ActionSaveCFExecute(TObject *Sender);
+	void  MemoObjectChange(TObject *Sender);
+	void  ActionSaveModuleExecute(TObject *Sender);
+	void  FormCloseQuery(TObject *Sender, bool &CanClose);
 
 
 private:	// User declarations
@@ -172,26 +172,26 @@ private:	// User declarations
 	ModuleTextDocument CurrentStandaloneModuleDocument;
 	bool CurrentModuleStandalone;
     std::unique_ptr<MetaDataManager> MDManager; // Умный указатель для автоматического управления памятью
-	void __fastcall CreateHighlightSettingsTab();
-	void __fastcall ApplyHighlightSettings();
-	void __fastcall LoadHighlightSettings();
-	void __fastcall SaveHighlightSettings();
-	void __fastcall SetDefaultHighlightSettingsControls();
-	void __fastcall HighlightSettingsChanged(TObject *Sender);
-	void __fastcall ResetHighlightSettingsClick(TObject *Sender);
-	void __fastcall ShowMetadataNodeText(PVirtualNode Node);
-	bool __fastcall SaveCurrentModuleTextIfNeeded(bool forcePrompt);
-	bool __fastcall FlushCurrentModuleBeforeBuild();
-	void __fastcall SetModuleEditorState(BaseMetadataObject* metadataObject, PVirtualNode node, const String& text, ModuleTextKind kind);
+	void  CreateHighlightSettingsTab();
+	void  ApplyHighlightSettings();
+	void  LoadHighlightSettings();
+	void  SaveHighlightSettings();
+	void  SetDefaultHighlightSettingsControls();
+	void  HighlightSettingsChanged(TObject *Sender);
+	void  ResetHighlightSettingsClick(TObject *Sender);
+	void  ShowMetadataNodeText(PVirtualNode Node);
+	bool  SaveCurrentModuleTextIfNeeded(bool forcePrompt);
+	bool  FlushCurrentModuleBeforeBuild();
+	void  SetModuleEditorState(BaseMetadataObject* metadataObject, PVirtualNode node, const String& text, ModuleTextKind kind);
 public:		// User declarations
-	__fastcall TMainForm(TComponent* Owner);
-	void __fastcall ResetLoadProgress(int maxValue, const String& statusText = L"");
-	void __fastcall AdvanceLoadProgress(const String& statusText);
-	void __fastcall CompleteLoadProgress(const String& statusText);
-	void __fastcall TreeInit();
-	void __fastcall	FillVirtualTree();
-	void __fastcall FillTreeMD(PVirtualNode parentNode, const MetadataVector<TObject>& mdData, const String& md_name, int imgIndex);
-	void __fastcall FillTreeMDConcrete(TVirtualStringTree *tree1C, PVirtualNode parentNode, const MetadataVector<TObject>& mdData, const String& md_name, int imgIndex);
+	 TMainForm(TComponent* Owner);
+	void  ResetLoadProgress(int maxValue, const String& statusText = L"");
+	void  AdvanceLoadProgress(const String& statusText);
+	void  CompleteLoadProgress(const String& statusText);
+	void  TreeInit();
+	void 	FillVirtualTree();
+	void  FillTreeMD(PVirtualNode parentNode, const MetadataVector<TObject>& mdData, const String& md_name, int imgIndex);
+	void  FillTreeMDConcrete(TVirtualStringTree *tree1C, PVirtualNode parentNode, const MetadataVector<TObject>& mdData, const String& md_name, int imgIndex);
 
 
 	String ConfigName;
@@ -263,15 +263,15 @@ private:
 	bool uiMessagesEnabled;
 	bool fileLoggingEnabled;
 public:
-	__fastcall Messager(TListView* lv, TStatusBar* sb);
-	void __fastcall setUiMessagesEnabled(bool enabled);
-	bool __fastcall getUiMessagesEnabled() const;
-	void __fastcall setFileLoggingEnabled(bool enabled);
-	bool __fastcall getFileLoggingEnabled() const;
-	void __fastcall setlogfile(String _logfile);
-	String __fastcall getlogfile() const;
-	virtual void __fastcall AddMessage(const String& message, const MessageState mstate, TStringList* param = NULL);
-	virtual void __fastcall Status(const String& message);
+	 Messager(TListView* lv, TStatusBar* sb);
+	void  setUiMessagesEnabled(bool enabled);
+	bool  getUiMessagesEnabled() const;
+	void  setFileLoggingEnabled(bool enabled);
+	bool  getFileLoggingEnabled() const;
+	void  setlogfile(String _logfile);
+	String  getlogfile() const;
+	virtual void  AddMessage(const String& message, const MessageState mstate, TStringList* param = NULL);
+	virtual void  Status(const String& message);
 };
 
 
